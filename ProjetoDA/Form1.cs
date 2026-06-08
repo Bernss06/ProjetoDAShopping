@@ -53,10 +53,18 @@ namespace ProjetoDA
 
         }
 
+        private void btntipoartigo_Click(object sender, EventArgs e)
+        {
+            var tipoArtigosForm = new views.TipoArtigos();
+            tipoArtigosForm.Show();
+            this.Hide();
+        }
+
         public void AtualizarOrcamentoLabel(int valor)
         {
             // Atualiza a label com o novo valor do orçamento
             // lblOrcamento.Text = valor.ToString("C");
         }
+
     }
 }

@@ -119,6 +119,7 @@
             this.btntipoartigo.TabIndex = 4;
             this.btntipoartigo.Text = "Tipos Artigo";
             this.btntipoartigo.UseVisualStyleBackColor = true;
+            this.btntipoartigo.Click += new System.EventHandler(this.btntipoartigo_Click);
             // 
             // btncompra
             // 
