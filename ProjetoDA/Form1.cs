@@ -72,5 +72,12 @@ namespace ProjetoDA
             modoCompraForm.Show();
             this.Hide();
         }
+
+        private void btncompra_Click_1(object sender, EventArgs e)
+        {
+            var modoCompraForm = new views.ModoCompra();
+            modoCompraForm.Show();
+            this.Hide();
+        }
     }
 }
