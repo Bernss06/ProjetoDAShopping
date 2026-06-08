@@ -65,15 +65,5 @@ namespace ProjetoDA
             // Atualiza a label com o novo valor do orçamento
             // lblOrcamento.Text = valor.ToString("C");
         }
-
-<<<<<<< HEAD
-=======
-        private void btncompra_Click(object sender, EventArgs e)
-        {
-            var modoCompraForm = new views.ModoCompra();
-            modoCompraForm.Show();
-            this.Hide();
-        }
->>>>>>> ce99c59b16963d83ca67febd351830cd47630620
     }
 }
