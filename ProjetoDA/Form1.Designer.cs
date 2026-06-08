@@ -128,6 +128,7 @@
             this.btncompra.TabIndex = 3;
             this.btncompra.Text = "Modo Compra";
             this.btncompra.UseVisualStyleBackColor = true;
+            this.btncompra.Click += new System.EventHandler(this.btncompra_Click);
             // 
             // btnplaneamento
             // 
