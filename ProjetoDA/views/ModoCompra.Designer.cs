@@ -30,16 +30,18 @@
         {
             this.btnVoltarInicio = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnAddNaoPrevisto = new System.Windows.Forms.Button();
+            this.dtgItensCompra = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtPrecoNaoPrevisto = new System.Windows.Forms.TextBox();
+            this.numNaoPrevisto = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.cbTipoArtigo = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.btnadicionaritem = new System.Windows.Forms.Button();
             this.txtPreco = new System.Windows.Forms.TextBox();
             this.numQuantidadeArtigo = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cbArtigo = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnremoveritem = new System.Windows.Forms.Button();
             this.dtgcompra = new System.Windows.Forms.DataGridView();
@@ -49,19 +51,17 @@
             this.label9 = new System.Windows.Forms.Label();
             this.lbOrcamentoTotal = new System.Windows.Forms.Label();
             this.lbRestanteDisponivel = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtPrecoNaoPrevisto = new System.Windows.Forms.TextBox();
-            this.numNaoPrevisto = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.dtg = new System.Windows.Forms.DataGridView();
-            this.btnAddNaoPrevisto = new System.Windows.Forms.Button();
+            this.cbTipoArtigo = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbArtigo = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgItensCompra)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numNaoPrevisto)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQuantidadeArtigo)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgcompra)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numNaoPrevisto)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtg)).BeginInit();
             this.SuspendLayout();
             // 
             // btnVoltarInicio
@@ -75,64 +75,100 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbTipoArtigo);
             this.groupBox1.Controls.Add(this.btnAddNaoPrevisto);
-            this.groupBox1.Controls.Add(this.dtg);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.cbArtigo);
             this.groupBox1.Controls.Add(this.txtPrecoNaoPrevisto);
             this.groupBox1.Controls.Add(this.numNaoPrevisto);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(12, 52);
+            this.groupBox1.Location = new System.Drawing.Point(12, 59);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(216, 354);
+            this.groupBox1.Size = new System.Drawing.Size(213, 347);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
+            // 
+            // btnAddNaoPrevisto
+            // 
+            this.btnAddNaoPrevisto.Location = new System.Drawing.Point(22, 278);
+            this.btnAddNaoPrevisto.Name = "btnAddNaoPrevisto";
+            this.btnAddNaoPrevisto.Size = new System.Drawing.Size(165, 48);
+            this.btnAddNaoPrevisto.TabIndex = 11;
+            this.btnAddNaoPrevisto.Text = "Adicionar Item Extra";
+            this.btnAddNaoPrevisto.UseVisualStyleBackColor = true;
+            // 
+            // dtgItensCompra
+            // 
+            this.dtgItensCompra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgItensCompra.Location = new System.Drawing.Point(6, 13);
+            this.dtgItensCompra.Name = "dtgItensCompra";
+            this.dtgItensCompra.RowHeadersWidth = 51;
+            this.dtgItensCompra.RowTemplate.Height = 24;
+            this.dtgItensCompra.Size = new System.Drawing.Size(277, 193);
+            this.dtgItensCompra.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 218);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(43, 16);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "Preço";
+            // 
+            // txtPrecoNaoPrevisto
+            // 
+            this.txtPrecoNaoPrevisto.Location = new System.Drawing.Point(53, 215);
+            this.txtPrecoNaoPrevisto.Name = "txtPrecoNaoPrevisto";
+            this.txtPrecoNaoPrevisto.Size = new System.Drawing.Size(154, 22);
+            this.txtPrecoNaoPrevisto.TabIndex = 13;
+            this.txtPrecoNaoPrevisto.TextChanged += new System.EventHandler(this.txtPrecoNaoPrevisto_TextChanged);
+            // 
+            // numNaoPrevisto
+            // 
+            this.numNaoPrevisto.Location = new System.Drawing.Point(84, 158);
+            this.numNaoPrevisto.Name = "numNaoPrevisto";
+            this.numNaoPrevisto.Size = new System.Drawing.Size(120, 22);
+            this.numNaoPrevisto.TabIndex = 12;
+            this.numNaoPrevisto.ValueChanged += new System.EventHandler(this.numNaoPrevisto_ValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(5, 160);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(77, 16);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Quantidade";
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.cbTipoArtigo);
-            this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.btnadicionaritem);
             this.groupBox2.Controls.Add(this.txtPreco);
+            this.groupBox2.Controls.Add(this.dtgItensCompra);
             this.groupBox2.Controls.Add(this.numQuantidadeArtigo);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.cbArtigo);
-            this.groupBox2.Location = new System.Drawing.Point(245, 52);
+            this.groupBox2.Location = new System.Drawing.Point(231, 52);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(216, 354);
+            this.groupBox2.Size = new System.Drawing.Size(289, 354);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(7, 194);
+            this.label12.Location = new System.Drawing.Point(31, 255);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(43, 16);
             this.label12.TabIndex = 10;
             this.label12.Text = "Preço";
             // 
-            // cbTipoArtigo
-            // 
-            this.cbTipoArtigo.FormattingEnabled = true;
-            this.cbTipoArtigo.Location = new System.Drawing.Point(6, 108);
-            this.cbTipoArtigo.Name = "cbTipoArtigo";
-            this.cbTipoArtigo.Size = new System.Drawing.Size(200, 24);
-            this.cbTipoArtigo.TabIndex = 9;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(7, 89);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(35, 16);
-            this.label11.TabIndex = 8;
-            this.label11.Text = "Tipo";
-            // 
             // btnadicionaritem
             // 
-            this.btnadicionaritem.Location = new System.Drawing.Point(10, 289);
+            this.btnadicionaritem.Location = new System.Drawing.Point(50, 285);
             this.btnadicionaritem.Name = "btnadicionaritem";
             this.btnadicionaritem.Size = new System.Drawing.Size(200, 48);
             this.btnadicionaritem.TabIndex = 7;
@@ -141,50 +177,33 @@
             // 
             // txtPreco
             // 
-            this.txtPreco.Location = new System.Drawing.Point(56, 194);
+            this.txtPreco.Location = new System.Drawing.Point(96, 252);
             this.txtPreco.Name = "txtPreco";
             this.txtPreco.Size = new System.Drawing.Size(154, 22);
             this.txtPreco.TabIndex = 4;
             // 
             // numQuantidadeArtigo
             // 
-            this.numQuantidadeArtigo.Location = new System.Drawing.Point(86, 152);
+            this.numQuantidadeArtigo.Location = new System.Drawing.Point(93, 219);
             this.numQuantidadeArtigo.Name = "numQuantidadeArtigo";
-            this.numQuantidadeArtigo.Size = new System.Drawing.Size(120, 22);
+            this.numQuantidadeArtigo.Size = new System.Drawing.Size(157, 22);
             this.numQuantidadeArtigo.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 154);
+            this.label2.Location = new System.Drawing.Point(10, 221);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "Quantidade";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 16);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Artigo";
-            // 
-            // cbArtigo
-            // 
-            this.cbArtigo.FormattingEnabled = true;
-            this.cbArtigo.Location = new System.Drawing.Point(6, 52);
-            this.cbArtigo.Name = "cbArtigo";
-            this.cbArtigo.Size = new System.Drawing.Size(200, 24);
-            this.cbArtigo.TabIndex = 0;
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.btnremoveritem);
             this.groupBox4.Controls.Add(this.dtgcompra);
             this.groupBox4.Controls.Add(this.btnfinalizarcompra);
-            this.groupBox4.Location = new System.Drawing.Point(476, 52);
+            this.groupBox4.Location = new System.Drawing.Point(526, 52);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(331, 354);
             this.groupBox4.TabIndex = 6;
@@ -221,7 +240,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(823, 65);
+            this.label7.Location = new System.Drawing.Point(358, 424);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(142, 16);
             this.label7.TabIndex = 7;
@@ -230,7 +249,7 @@
             // lbCustoTotaldaCompra
             // 
             this.lbCustoTotaldaCompra.AutoSize = true;
-            this.lbCustoTotaldaCompra.Location = new System.Drawing.Point(971, 65);
+            this.lbCustoTotaldaCompra.Location = new System.Drawing.Point(506, 424);
             this.lbCustoTotaldaCompra.Name = "lbCustoTotaldaCompra";
             this.lbCustoTotaldaCompra.Size = new System.Drawing.Size(44, 16);
             this.lbCustoTotaldaCompra.TabIndex = 8;
@@ -239,7 +258,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(823, 107);
+            this.label9.Location = new System.Drawing.Point(623, 424);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(110, 16);
             this.label9.TabIndex = 9;
@@ -248,7 +267,7 @@
             // lbOrcamentoTotal
             // 
             this.lbOrcamentoTotal.AutoSize = true;
-            this.lbOrcamentoTotal.Location = new System.Drawing.Point(944, 107);
+            this.lbOrcamentoTotal.Location = new System.Drawing.Point(739, 422);
             this.lbOrcamentoTotal.Name = "lbOrcamentoTotal";
             this.lbOrcamentoTotal.Size = new System.Drawing.Size(51, 16);
             this.lbOrcamentoTotal.TabIndex = 10;
@@ -257,71 +276,51 @@
             // lbRestanteDisponivel
             // 
             this.lbRestanteDisponivel.AutoSize = true;
-            this.lbRestanteDisponivel.Location = new System.Drawing.Point(823, 163);
+            this.lbRestanteDisponivel.Location = new System.Drawing.Point(746, 460);
             this.lbRestanteDisponivel.Name = "lbRestanteDisponivel";
             this.lbRestanteDisponivel.Size = new System.Drawing.Size(44, 16);
             this.lbRestanteDisponivel.TabIndex = 11;
             this.lbRestanteDisponivel.Text = "label8";
             // 
-            // label3
+            // cbTipoArtigo
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 239);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 16);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "Preço";
+            this.cbTipoArtigo.FormattingEnabled = true;
+            this.cbTipoArtigo.Location = new System.Drawing.Point(4, 99);
+            this.cbTipoArtigo.Name = "cbTipoArtigo";
+            this.cbTipoArtigo.Size = new System.Drawing.Size(200, 24);
+            this.cbTipoArtigo.TabIndex = 14;
             // 
-            // txtPrecoNaoPrevisto
+            // label11
             // 
-            this.txtPrecoNaoPrevisto.Location = new System.Drawing.Point(56, 239);
-            this.txtPrecoNaoPrevisto.Name = "txtPrecoNaoPrevisto";
-            this.txtPrecoNaoPrevisto.Size = new System.Drawing.Size(154, 22);
-            this.txtPrecoNaoPrevisto.TabIndex = 13;
-            this.txtPrecoNaoPrevisto.TextChanged += new System.EventHandler(this.txtPrecoNaoPrevisto_TextChanged);
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(5, 80);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(35, 16);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "Tipo";
             // 
-            // numNaoPrevisto
+            // label1
             // 
-            this.numNaoPrevisto.Location = new System.Drawing.Point(86, 208);
-            this.numNaoPrevisto.Name = "numNaoPrevisto";
-            this.numNaoPrevisto.Size = new System.Drawing.Size(120, 22);
-            this.numNaoPrevisto.TabIndex = 12;
-            this.numNaoPrevisto.ValueChanged += new System.EventHandler(this.numNaoPrevisto_ValueChanged);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 16);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Artigo";
             // 
-            // label4
+            // cbArtigo
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 210);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 16);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "Quantidade";
-            // 
-            // dtg
-            // 
-            this.dtg.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtg.Location = new System.Drawing.Point(19, 21);
-            this.dtg.Name = "dtg";
-            this.dtg.RowHeadersWidth = 51;
-            this.dtg.RowTemplate.Height = 24;
-            this.dtg.Size = new System.Drawing.Size(176, 168);
-            this.dtg.TabIndex = 5;
-            // 
-            // btnAddNaoPrevisto
-            // 
-            this.btnAddNaoPrevisto.Location = new System.Drawing.Point(30, 289);
-            this.btnAddNaoPrevisto.Name = "btnAddNaoPrevisto";
-            this.btnAddNaoPrevisto.Size = new System.Drawing.Size(165, 48);
-            this.btnAddNaoPrevisto.TabIndex = 11;
-            this.btnAddNaoPrevisto.Text = "Adicionar Item Registado";
-            this.btnAddNaoPrevisto.UseVisualStyleBackColor = true;
-            this.btnAddNaoPrevisto.Click += new System.EventHandler(this.btnAddNaoPrevisto_Click);
+            this.cbArtigo.FormattingEnabled = true;
+            this.cbArtigo.Location = new System.Drawing.Point(4, 43);
+            this.cbArtigo.Name = "cbArtigo";
+            this.cbArtigo.Size = new System.Drawing.Size(204, 24);
+            this.cbArtigo.TabIndex = 11;
             // 
             // ModoCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1039, 429);
+            this.ClientSize = new System.Drawing.Size(1010, 487);
             this.Controls.Add(this.lbRestanteDisponivel);
             this.Controls.Add(this.btnVoltarInicio);
             this.Controls.Add(this.lbOrcamentoTotal);
@@ -335,13 +334,13 @@
             this.Text = "ModoCompra";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgItensCompra)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numNaoPrevisto)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQuantidadeArtigo)).EndInit();
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgcompra)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numNaoPrevisto)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dtg)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -359,21 +358,21 @@
         private System.Windows.Forms.TextBox txtPreco;
         private System.Windows.Forms.NumericUpDown numQuantidadeArtigo;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cbArtigo;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lbCustoTotaldaCompra;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lbOrcamentoTotal;
-        private System.Windows.Forms.ComboBox cbTipoArtigo;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label lbRestanteDisponivel;
-        private System.Windows.Forms.DataGridView dtg;
+        private System.Windows.Forms.DataGridView dtgItensCompra;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtPrecoNaoPrevisto;
         private System.Windows.Forms.NumericUpDown numNaoPrevisto;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnAddNaoPrevisto;
+        private System.Windows.Forms.ComboBox cbTipoArtigo;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cbArtigo;
     }
 }

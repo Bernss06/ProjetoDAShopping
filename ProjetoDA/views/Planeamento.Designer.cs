@@ -91,7 +91,7 @@
             // btnAddItem
             // 
             this.btnAddItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddItem.Location = new System.Drawing.Point(89, 323);
+            this.btnAddItem.Location = new System.Drawing.Point(124, 310);
             this.btnAddItem.Name = "btnAddItem";
             this.btnAddItem.Size = new System.Drawing.Size(171, 42);
             this.btnAddItem.TabIndex = 3;
@@ -138,7 +138,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnAddCompra);
             this.groupBox2.Controls.Add(this.dtgCompras);
             this.groupBox2.Controls.Add(this.btnRemoveItem);
             this.groupBox2.Location = new System.Drawing.Point(666, 52);
@@ -150,11 +149,11 @@
             // btnAddCompra
             // 
             this.btnAddCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddCompra.Location = new System.Drawing.Point(85, 387);
+            this.btnAddCompra.Location = new System.Drawing.Point(18, 160);
             this.btnAddCompra.Name = "btnAddCompra";
             this.btnAddCompra.Size = new System.Drawing.Size(200, 42);
             this.btnAddCompra.TabIndex = 7;
-            this.btnAddCompra.Text = "Adicionar";
+            this.btnAddCompra.Text = "Criar";
             this.btnAddCompra.UseVisualStyleBackColor = true;
             // 
             // dtgCompras
@@ -170,7 +169,7 @@
             // btnRemoveItem
             // 
             this.btnRemoveItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveItem.Location = new System.Drawing.Point(85, 327);
+            this.btnRemoveItem.Location = new System.Drawing.Point(86, 353);
             this.btnRemoveItem.Name = "btnRemoveItem";
             this.btnRemoveItem.Size = new System.Drawing.Size(200, 41);
             this.btnRemoveItem.TabIndex = 7;
@@ -179,6 +178,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.btnAddCompra);
             this.groupBox4.Controls.Add(this.txtnomeCompra);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Location = new System.Drawing.Point(18, 52);
@@ -189,7 +189,7 @@
             // 
             // txtnomeCompra
             // 
-            this.txtnomeCompra.Location = new System.Drawing.Point(39, 92);
+            this.txtnomeCompra.Location = new System.Drawing.Point(39, 102);
             this.txtnomeCompra.Name = "txtnomeCompra";
             this.txtnomeCompra.Size = new System.Drawing.Size(124, 22);
             this.txtnomeCompra.TabIndex = 7;

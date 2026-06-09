@@ -24,9 +24,33 @@ namespace ProjetoDA
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-            CarregarCompras();
-        }
+{
+    CarregarCompras();
+
+    // 1. Mostrar o Nome do Utilizador Logado na label8
+    int userId = SessionManager.UtilizadorLogadoId;
+    
+    if (userId != 0)
+    {
+        var _utilizadorController = new UtilizadorController();
+        // Procura o user na BD através do ID guardado na sessão
+        var user = _utilizadorController.getUtilizadores().FirstOrDefault(u => u.Id == userId);
+        
+        // Se encontrar, mete o nome. Se der algum erro bizarro, previne falhas.
+        label8.Text = user != null ? user.Username : "Desconhecido";
+    }
+    else
+    {
+        // Caso estejas a arrancar a app diretamente no Form1 sem passar pelo Login para testar
+        label8.Text = "Visitante (Modo Debug)"; 
+    }
+
+    // 2. Mostrar a Data formatada na label9
+    // dddd = dia da semana (ex: terça-feira)
+    // dd = dia do mês (ex: 09)
+    // HH:mm = horas e minutos (ex: 15:00)
+    label9.Text = DateTime.Now.ToString("dddd, dd - HH:mm", new System.Globalization.CultureInfo("pt-PT"));
+}
 
         private void CarregarCompras()
         {

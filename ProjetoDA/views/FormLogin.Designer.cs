@@ -68,8 +68,8 @@
             // 
             // txtusername
             // 
-            this.txtusername.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.txtusername.ForeColor = System.Drawing.SystemColors.InactiveBorder;
+            this.txtusername.BackColor = System.Drawing.SystemColors.Window;
+            this.txtusername.ForeColor = System.Drawing.SystemColors.WindowText;
             this.txtusername.Location = new System.Drawing.Point(130, 85);
             this.txtusername.Name = "txtusername";
             this.txtusername.Size = new System.Drawing.Size(215, 22);
