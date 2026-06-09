@@ -79,6 +79,7 @@
             // 
             // btnsair
             // 
+            this.btnsair.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnsair.Location = new System.Drawing.Point(31, 489);
             this.btnsair.Name = "btnsair";
             this.btnsair.Size = new System.Drawing.Size(202, 65);
@@ -89,6 +90,7 @@
             // 
             // btnartigos
             // 
+            this.btnartigos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnartigos.Location = new System.Drawing.Point(31, 402);
             this.btnartigos.Name = "btnartigos";
             this.btnartigos.Size = new System.Drawing.Size(202, 55);
@@ -99,6 +101,7 @@
             // 
             // btntipoartigo
             // 
+            this.btntipoartigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btntipoartigo.Location = new System.Drawing.Point(31, 311);
             this.btntipoartigo.Name = "btntipoartigo";
             this.btntipoartigo.Size = new System.Drawing.Size(202, 55);
@@ -109,6 +112,7 @@
             // 
             // btnplaneamento
             // 
+            this.btnplaneamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnplaneamento.Location = new System.Drawing.Point(31, 223);
             this.btnplaneamento.Name = "btnplaneamento";
             this.btnplaneamento.Size = new System.Drawing.Size(202, 54);
@@ -119,6 +123,7 @@
             // 
             // btnorcamento
             // 
+            this.btnorcamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnorcamento.Location = new System.Drawing.Point(31, 133);
             this.btnorcamento.Name = "btnorcamento";
             this.btnorcamento.Size = new System.Drawing.Size(202, 54);
@@ -129,6 +134,7 @@
             // 
             // btninicio
             // 
+            this.btninicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btninicio.Location = new System.Drawing.Point(31, 40);
             this.btninicio.Name = "btninicio";
             this.btninicio.Size = new System.Drawing.Size(202, 57);
@@ -232,6 +238,7 @@
             // 
             // btnfecharcompra
             // 
+            this.btnfecharcompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnfecharcompra.Location = new System.Drawing.Point(398, 254);
             this.btnfecharcompra.Name = "btnfecharcompra";
             this.btnfecharcompra.Size = new System.Drawing.Size(179, 52);
@@ -242,6 +249,7 @@
             // 
             // btnnovacompra
             // 
+            this.btnnovacompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnnovacompra.Location = new System.Drawing.Point(124, 254);
             this.btnnovacompra.Name = "btnnovacompra";
             this.btnnovacompra.Size = new System.Drawing.Size(165, 52);
