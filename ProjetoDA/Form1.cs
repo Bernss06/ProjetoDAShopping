@@ -180,7 +180,7 @@ namespace ProjetoDA
 
         private void btnplaneamento_Click(object sender, EventArgs e)
         {
-            var planeamentoForm = new views.Planeamento();
+            var planeamentoForm = new views.ListasDeCompra();
             planeamentoForm.Show();
             this.Hide();
         }
@@ -204,15 +204,6 @@ namespace ProjetoDA
             // Atualiza as labels quando o orçamento é alterado
             CarregarDadosOrcamento();
         }
-
-        private void btncompra_Click(object sender, EventArgs e)
-        {
-            // Mantido caso precises, mas a abrir com ID 0
-            var modoCompraForm = new views.ModoCompra(0);
-            modoCompraForm.Show();
-            this.Hide();
-        }
-
         private void btncompra_Click_1(object sender, EventArgs e)
         {
             // Mantido caso precises, mas a abrir com ID 0
@@ -227,12 +218,6 @@ namespace ProjetoDA
             planeamentoForm.Show();
             this.Hide();
         }
-
-        private void btnfecharcompra_Click(object sender, EventArgs e)
-        {
-            // Implementar lógica para fechar compra selecionada
-        }
-
         private void btnsair_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -240,6 +225,26 @@ namespace ProjetoDA
 
         private void grdCompras_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+        }
+
+        private void btnfecharcompra_Click(object sender, EventArgs e)
+        {
+            if (grdCompras.CurrentRow != null)
+            {
+                int compraSelecionadaId = Convert.ToInt32(grdCompras.CurrentRow.Cells["Id"].Value);
+
+                var modoCompraForm = new views.ModoCompra(compraSelecionadaId);
+
+                this.Hide();
+                modoCompraForm.ShowDialog(); // Pausa o Form1 até o ModoCompra fechar
+
+                this.Show();
+                CarregarCompras(); // Atualiza a grelha quando voltares!
+            }
+            else
+            {
+                MessageBox.Show("Seleciona uma compra na tabela primeiro!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

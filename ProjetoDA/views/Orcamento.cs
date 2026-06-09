@@ -1,13 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Globalization;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProjetoDA.controllers;
 
@@ -30,8 +23,12 @@ namespace ProjetoDA.views
             _mesSelecionado = DateTime.Now.Month;
             _anoSelecionado = DateTime.Now.Year;
 
+            this.Load += Orcamento_Load;
             this.btndefinirOrçamento.Click += btndefinirOrçamento_Click;
             this.btnVoltarInicio.Click += btnVoltarInicio_Click;
+
+            // IMPORTANTE: Muda aqui o nome se a tua grelha se chamar de outra forma!
+            // this.dataGridViewOrcamentos.CellClick += DataGridViewOrcamentos_CellClick;
         }
 
         public Orcamento(Form1 parent) : this()
@@ -39,105 +36,120 @@ namespace ProjetoDA.views
             _parent = parent;
         }
 
-        private void CarregarOrcamento()
+        private void Orcamento_Load(object sender, EventArgs e)
+        {
+            CarregarOrcamentoAtual();
+            CarregarGrelhaOrcamentos();
+        }
+
+        private void CarregarOrcamentoAtual()
         {
             try
             {
                 var orcamentos = _orcamentoController.getOrcamentos();
-                var orcamentoAtual = orcamentos.FirstOrDefault(o => o.Mes == _mesSelecionado && o.Ano == _anoSelecionado);
+                var orcAtual = orcamentos.FirstOrDefault(o => o.Mes == _mesSelecionado && o.Ano == _anoSelecionado);
 
-                if (orcamentoAtual != null)
+                if (orcAtual != null)
                 {
-                    lblOrcamentos.Text = FormatCurrency(orcamentoAtual.ValorMaximo);
-                    txtOrcamento.Text = orcamentoAtual.ValorMaximo.ToString("N2", CultureInfo.CurrentCulture);
-
-                    // Adicionado o (int) para converter e não dar erro de incompatibilidade com o Form1
-                    _parent?.AtualizarOrcamentoLabel((int)orcamentoAtual.ValorMaximo);
+                    lblOrcamentos.Text = orcAtual.ValorMaximo.ToString("C2", CultureInfo.CurrentCulture);
+                    txtOrcamento.Text = orcAtual.ValorMaximo.ToString("N2", CultureInfo.CurrentCulture);
+                    _parent?.AtualizarOrcamentoLabel((int)orcAtual.ValorMaximo);
                 }
                 else
                 {
                     lblOrcamentos.Text = "Ainda sem orçamento definido";
                     txtOrcamento.Text = string.Empty;
                 }
+
+                // Garante que se estivermos no mês atual, os controlos estão ativos
+                txtOrcamento.Enabled = true;
+                btndefinirOrçamento.Enabled = true;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao carregar o orçamento: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Erro ao carregar: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        // ==========================================
+        // 1. CARREGAR A GRELHA COM O HISTÓRICO
+        // ==========================================
+        private void CarregarGrelhaOrcamentos()
+        {
+            var todosOrcamentos = _orcamentoController.getOrcamentos()
+                                    .OrderByDescending(o => o.Ano)
+                                    .ThenByDescending(o => o.Mes)
+                                    .ToList();
+
+            var dadosGrelha = todosOrcamentos.Select(o => new
+            {
+                Id = o.Id,
+                Periodo = $"{o.Mes:D2}/{o.Ano}",
+                Valor = o.ValorMaximo.ToString("C2", CultureInfo.CurrentCulture),
+                CriadoPor = o.UserCria?.Username ?? "N/A",
+                Estado = (o.Mes == DateTime.Now.Month && o.Ano == DateTime.Now.Year) ? "Atual (Editável)" : "Fechado 🔒"
+            }).ToList();
+
+
+            dtgOrcamentos.DataSource = dadosGrelha;
+            if (dtgOrcamentos.Columns["Id"] != null) dtgOrcamentos.Columns["Id"].Visible = false;
+            dtgOrcamentos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            
+        }
+
+        // ==========================================
+        // 2. LÓGICA DE BLOQUEIO AO CLICAR NA GRELHA
+        // ==========================================
+        private void DataGridViewOrcamentos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+            if (e.RowIndex >= 0)
+            {
+                string estado = dtgOrcamentos.Rows[e.RowIndex].Cells["Estado"].Value.ToString();
+                
+                if (estado == "Fechado 🔒")
+                {
+                    // Bloqueia a edição
+                    txtOrcamento.Text = dtgOrcamentos.Rows[e.RowIndex].Cells["Valor"].Value.ToString();
+                    txtOrcamento.Enabled = false;
+                    btndefinirOrçamento.Enabled = false;
+                }
+                else
+                {
+                    // Liberta para edição
+                    txtOrcamento.Enabled = true;
+                    btndefinirOrçamento.Enabled = true;
+                    CarregarOrcamentoAtual(); // Volta a carregar os dados limpos para editar
+                }
+            }
+            
         }
 
         private void btndefinirOrçamento_Click(object sender, EventArgs e)
         {
             var texto = txtOrcamento.Text?.Trim();
-            if (string.IsNullOrEmpty(texto))
+            if (!decimal.TryParse(texto, NumberStyles.Number, CultureInfo.CurrentCulture, out var valor) || valor < 0)
             {
-                MessageBox.Show("Introduza um valor para o orçamento.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Valor inválido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // AQUI: Passou a decimal.TryParse para aceitar números com vírgula!
-            if (!decimal.TryParse(texto, NumberStyles.Number, CultureInfo.CurrentCulture, out var valor))
+            int userId = SessionManager.UtilizadorLogadoId != 0 ? SessionManager.UtilizadorLogadoId : 1;
+
+            if (_orcamentoController.salvarOuAtualizarOrcamento(_mesSelecionado, _anoSelecionado, valor, userId))
             {
-                MessageBox.Show("Formato inválido. Use números válidos (ex.: 1000 ou 1000,50).", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            if (valor < 0)
-            {
-                MessageBox.Show("O orçamento não pode ser negativo.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            try
-            {
-                int userId = SessionManager.UtilizadorLogadoId;
-
-                if (userId == 0)
-                {
-                    MessageBox.Show("Erro: Nenhum utilizador logado. Por favor, faça login novamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                bool sucesso = _orcamentoController.salvarOuAtualizarOrcamento(_mesSelecionado, _anoSelecionado, valor, userId);
-
-                if (sucesso)
-                {
-                    CarregarOrcamento();
-
-                    // Adicionado o (int) para o Form1
-                    _parent?.AtualizarOrcamentoLabel((int)valor);
-
-                    MessageBox.Show("Orçamento guardado com sucesso.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Erro ao gravar o orçamento. Utilizador não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao gravar o orçamento: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CarregarOrcamentoAtual();
+                CarregarGrelhaOrcamentos(); // Atualiza a tabela logo após gravar!
+                _parent?.AtualizarOrcamentoLabel((int)valor);
+                MessageBox.Show("Orçamento atualizado!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private void btnVoltarInicio_Click(object sender, EventArgs e)
         {
-            if (_parent != null)
-            {
-                _parent.Show();
-            }
-            else
-            {
-                Form1 form1 = new Form1();
-                form1.Show();
-            }
+            if (_parent != null) _parent.Show();
+            else new Form1().Show();
             this.Hide();
-        }
-
-        // AQUI: Passou a aceitar decimal no formatador de moeda
-        private string FormatCurrency(decimal valor)
-        {
-            return string.Format(CultureInfo.CurrentCulture, "{0:C}", valor);
         }
     }
 }

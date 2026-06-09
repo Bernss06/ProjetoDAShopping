@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjetoDA.models
 {
-    public class AppDbInitializer: DropCreateDatabaseIfModelChanges<ShoppingContext>
+    public class AppDbInitializer : DropCreateDatabaseIfModelChanges<ShoppingContext>
     {
         protected override void Seed(ShoppingContext context)
         {
@@ -143,14 +143,19 @@ namespace ProjetoDA.models
             context.Artigos.Add(new Artigo("Pijama", tipoRoupa));
             context.Artigos.Add(new Artigo("Sapatilhas Casuais", tipoRoupa));
 
-            // 3. Criar Utilizadores (Administração e Testes)
-            context.Utilizadores.Add(new Utilizador("joao.silva", "12345"));
-            context.Utilizadores.Add(new Utilizador("maria.santos", "12345"));
-            context.Utilizadores.Add(new Utilizador("admin", "admin"));
+            // 3. Criar Utilizadores apenas se não existirem
+            if (!context.Utilizadores.Any(u => u.Username == "joao.silva"))
+                context.Utilizadores.Add(new Utilizador("joao.silva", "12345"));
+            
+            if (!context.Utilizadores.Any(u => u.Username == "maria.santos"))
+                context.Utilizadores.Add(new Utilizador("maria.santos", "12345"));
+            
+            if (!context.Utilizadores.Any(u => u.Username == "admin"))
+                context.Utilizadores.Add(new Utilizador("admin", "admin"));
 
-            // Salvar as alterações na base de dados
+            // Guardar todas as alterações
+            context.SaveChanges();
             base.Seed(context);
-
         }
     }
 }
