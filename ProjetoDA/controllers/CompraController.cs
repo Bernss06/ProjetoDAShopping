@@ -102,14 +102,16 @@ namespace ProjetoDA.controllers
             }
         }
 
+        // ==========================================
+        // O PROBLEMA ESTAVA AQUI! AGORA JÁ CARREGA TUDO
+        // ==========================================
         public List<Compra> getTodasAsCompras()
         {
-            // Retorna todas as compras (abertas e fechadas)
-            // Implemente conforme sua lógica de acesso a dados
-            // Exemplo fictício:
-            // return contexto.Compras.ToList();
-
-            throw new NotImplementedException("Implemente o método getTodasAsCompras conforme sua lógica de dados.");
+            using (var db = new ShoppingContext())
+            {
+                // Traz todas as compras e inclui o Utilizador que a criou para o Form1 conseguir mostrar o nome
+                return db.Compras.Include("UserCria").ToList();
+            }
         }
     }
 }

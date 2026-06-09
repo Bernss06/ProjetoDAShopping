@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProjetoDA.controllers;
+using ProjetoDA.modelos;
 
 namespace ProjetoDA
 {
@@ -24,44 +25,37 @@ namespace ProjetoDA
         }
 
         private void Form1_Load(object sender, EventArgs e)
-{
-    CarregarCompras();
+        {
+            CarregarCompras();
 
-    // 1. Mostrar o Nome do Utilizador Logado na label8
-    int userId = SessionManager.UtilizadorLogadoId;
-    
-    if (userId != 0)
-    {
-        var _utilizadorController = new UtilizadorController();
-        // Procura o user na BD através do ID guardado na sessão
-        var user = _utilizadorController.getUtilizadores().FirstOrDefault(u => u.Id == userId);
-        
-        // Se encontrar, mete o nome. Se der algum erro bizarro, previne falhas.
-        label8.Text = user != null ? user.Username : "Desconhecido";
-    }
-    else
-    {
-        // Caso estejas a arrancar a app diretamente no Form1 sem passar pelo Login para testar
-        label8.Text = "Visitante (Modo Debug)"; 
-    }
+            // 1. Mostrar o Nome do Utilizador Logado na label8
+            int userId = SessionManager.UtilizadorLogadoId;
 
-    // 2. Mostrar a Data formatada na label9
-    // dddd = dia da semana (ex: terça-feira)
-    // dd = dia do mês (ex: 09)
-    // HH:mm = horas e minutos (ex: 15:00)
-    label9.Text = DateTime.Now.ToString("dddd, dd - HH:mm", new System.Globalization.CultureInfo("pt-PT"));
-}
+            if (userId != 0)
+            {
+                var _utilizadorController = new UtilizadorController();
+                var user = _utilizadorController.getUtilizadores().FirstOrDefault(u => u.Id == userId);
+                label8.Text = user != null ? user.Username : "Desconhecido";
+            }
+            else
+            {
+                label8.Text = "Visitante (Modo Debug)";
+            }
 
-        private void CarregarCompras()
+            // 2. Mostrar a Data formatada na label9
+            label9.Text = DateTime.Now.ToString("dddd, dd - HH:mm", new System.Globalization.CultureInfo("pt-PT"));
+        }
+
+        public void CarregarCompras()
         {
             try
             {
-                // Buscar TODAS as compras (abertas e fechadas)
+                // Buscar TODAS as compras
                 List<Compra> compras = compraController.getTodasAsCompras();
-                
+
                 // Limpar as linhas anteriores
                 grdCompras.DataSource = null;
-                
+
                 // Criar uma lista anônima com os dados que queremos exibir
                 var dadosCompras = compras.Select(c => new
                 {
@@ -74,22 +68,25 @@ namespace ProjetoDA
                 }).ToList();
 
                 grdCompras.DataSource = dadosCompras;
-                
+
                 // Configurar colunas do DataGrid
-                grdCompras.Columns["Id"].HeaderText = "ID";
-                grdCompras.Columns["Nome"].HeaderText = "Nome da Compra";
-                grdCompras.Columns["DataCriacao"].HeaderText = "Data de Criação";
-                grdCompras.Columns["Fechada"].HeaderText = "Fechada";
-                grdCompras.Columns["ValorTotal"].HeaderText = "Valor Total (€)";
-                grdCompras.Columns["Utilizador"].HeaderText = "Utilizador";
-                
+                if (grdCompras.Columns["Id"] != null)
+                {
+                    grdCompras.Columns["Id"].HeaderText = "ID";
+                    grdCompras.Columns["Id"].Visible = false; // Esconde o ID para ficar mais limpo
+                }
+                if (grdCompras.Columns["Nome"] != null) grdCompras.Columns["Nome"].HeaderText = "Nome da Compra";
+                if (grdCompras.Columns["DataCriacao"] != null) grdCompras.Columns["DataCriacao"].HeaderText = "Data de Criação";
+                if (grdCompras.Columns["Fechada"] != null) grdCompras.Columns["Fechada"].HeaderText = "Fechada";
+                if (grdCompras.Columns["ValorTotal"] != null) grdCompras.Columns["ValorTotal"].HeaderText = "Valor Total (€)";
+                if (grdCompras.Columns["Utilizador"] != null) grdCompras.Columns["Utilizador"].HeaderText = "Utilizador";
+
                 // Ajustar largura das colunas
-                grdCompras.Columns["Id"].Width = 40;
-                grdCompras.Columns["Nome"].Width = 130;
-                grdCompras.Columns["DataCriacao"].Width = 120;
-                grdCompras.Columns["Fechada"].Width = 70;
-                grdCompras.Columns["ValorTotal"].Width = 100;
-                grdCompras.Columns["Utilizador"].Width = 110;
+                if (grdCompras.Columns["Nome"] != null) grdCompras.Columns["Nome"].Width = 130;
+                if (grdCompras.Columns["DataCriacao"] != null) grdCompras.Columns["DataCriacao"].Width = 120;
+                if (grdCompras.Columns["Fechada"] != null) grdCompras.Columns["Fechada"].Width = 70;
+                if (grdCompras.Columns["ValorTotal"] != null) grdCompras.Columns["ValorTotal"].Width = 100;
+                if (grdCompras.Columns["Utilizador"] != null) grdCompras.Columns["Utilizador"].Width = 110;
             }
             catch (Exception ex)
             {
@@ -105,7 +102,6 @@ namespace ProjetoDA
 
         private void btnorcamento_Click(object sender, EventArgs e)
         {
-            // Abre a view de Orçamento passando uma referência a este Form1
             var orcamentoForm = new views.Orcamento(this);
             orcamentoForm.Show();
             this.Hide();
@@ -113,22 +109,16 @@ namespace ProjetoDA
 
         private void btnplaneamento_Click(object sender, EventArgs e)
         {
-            
-                // Abre a view de Planeamento e esconde o Form1
-                var planeamentoForm = new views.Planeamento();
-                planeamentoForm.Show();
-                this.Hide();
-            
+            var planeamentoForm = new views.Planeamento();
+            planeamentoForm.Show();
+            this.Hide();
         }
 
         private void btnartigo_Click(object sender, EventArgs e)
         {
-
-            // Abre a view de Artigos e esconde o Form1
             var artigoForm = new views.Artigos();
             artigoForm.Show();
             this.Hide();
-
         }
 
         private void btntipoartigo_Click(object sender, EventArgs e)
@@ -146,21 +136,22 @@ namespace ProjetoDA
 
         private void btncompra_Click(object sender, EventArgs e)
         {
-            var modoCompraForm = new views.ModoCompra();
+            // Mantido caso precises, mas a abrir com ID 0
+            var modoCompraForm = new views.ModoCompra(0);
             modoCompraForm.Show();
             this.Hide();
         }
 
         private void btncompra_Click_1(object sender, EventArgs e)
         {
-            var modoCompraForm = new views.ModoCompra();
+            // Mantido caso precises, mas a abrir com ID 0
+            var modoCompraForm = new views.ModoCompra(0);
             modoCompraForm.Show();
             this.Hide();
         }
 
         private void grdCompras_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
 
         private void btnnovacompra_Click(object sender, EventArgs e)
@@ -170,11 +161,27 @@ namespace ProjetoDA
             this.Hide();
         }
 
+        // =======================================================
+        // AQUI ESTÁ A LÓGICA DE ABRIR A COMPRA SELECIONADA NA GRELHA
+        // =======================================================
         private void btnfecharcompra_Click(object sender, EventArgs e)
         {
-            var modoCompraForm = new views.ModoCompra();
-            modoCompraForm.Show();
-            this.Hide();
+            if (grdCompras.CurrentRow != null)
+            {
+                int compraSelecionadaId = Convert.ToInt32(grdCompras.CurrentRow.Cells["Id"].Value);
+
+                var modoCompraForm = new views.ModoCompra(compraSelecionadaId);
+
+                this.Hide();
+                modoCompraForm.ShowDialog(); // Pausa o Form1 até o ModoCompra fechar
+
+                this.Show();
+                CarregarCompras(); // Atualiza a grelha quando voltares!
+            }
+            else
+            {
+                MessageBox.Show("Seleciona uma compra na tabela primeiro!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnsair_Click(object sender, EventArgs e)

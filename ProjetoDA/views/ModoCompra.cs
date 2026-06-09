@@ -15,10 +15,12 @@ namespace ProjetoDA.views
         private TipoArtigoController _tipoArtigoController;
         private OrcamentoController _orcamentoController;
 
-        private int _compraAbertaId = 0;
+        // Vai guardar o ID que vem do Form1
+        private int _compraAbertaId;
         private decimal _orcamentoMensal = 0;
 
-        public ModoCompra()
+        // NOVO CONSTRUTOR: Agora recebe obrigatoriamente um ID de compra!
+        public ModoCompra(int compraSelecionadaId)
         {
             InitializeComponent();
 
@@ -28,21 +30,24 @@ namespace ProjetoDA.views
             _tipoArtigoController = new TipoArtigoController();
             _orcamentoController = new OrcamentoController();
 
+            _compraAbertaId = compraSelecionadaId;
+
             this.Load += ModoCompra_Load;
             this.btnVoltarInicio.Click += BtnVoltarInicio_Click;
 
-            // Botões do formulário
-            this.btnadicionaritem.Click += BtnAtualizarPrevisto_Click; // Atualiza item planeado
-            this.btnAddNaoPrevisto.Click += BtnAddNaoPrevisto_Click;   // Adiciona item extra
-            this.btnremoveritem.Click += BtnRemoverItem_Click;         // Remove do carrinho
-            this.btnfinalizarcompra.Click += BtnFinalizarCompra_Click; // Fecha a compra
+            this.btnadicionaritem.Click += BtnAtualizarPrevisto_Click;
+            this.btnAddNaoPrevisto.Click += BtnAddNaoPrevisto_Click;
+            this.btnremoveritem.Click += BtnRemoverItem_Click;
+            this.btnfinalizarcompra.Click += BtnFinalizarCompra_Click;
 
             this.cbTipoArtigo.SelectedIndexChanged += CbTipoArtigo_SelectedIndexChanged;
         }
 
         private void ModoCompra_Load(object sender, EventArgs e)
         {
-            // 1. Carregar Categorias e Artigos para os Extras (Esquerda)
+            label3.Visible = false;
+            label4.Visible = false;
+
             var tipos = _tipoArtigoController.getTiposArtigo();
             tipos.Insert(0, new TipoArtigo { Id = 0, Categoria = "-- Todos --" });
             cbTipoArtigo.DataSource = tipos;
@@ -50,7 +55,6 @@ namespace ProjetoDA.views
             cbTipoArtigo.ValueMember = "Id";
             CarregarArtigos(0);
 
-            // 2. Obter Orçamento do Mês
             var orcMes = _orcamentoController.getOrcamentos().FirstOrDefault(o => o.Mes == DateTime.Now.Month && o.Ano == DateTime.Now.Year);
             if (orcMes != null)
             {
@@ -62,17 +66,15 @@ namespace ProjetoDA.views
                 lbOrcamentoTotal.Text = "Sem Orçamento";
             }
 
-            // 3. Puxar a compra que deixaste aberta no Planeamento
-            var comprasAbertas = _compraController.getComprasAbertas();
-            if (comprasAbertas.Count > 0)
+            // Agora ele apenas arranca com o ID que lhe deste no Form1!
+            if (_compraAbertaId > 0)
             {
-                _compraAbertaId = comprasAbertas.First().Id;
                 AtualizarGrelhasETotais();
             }
             else
             {
-                MessageBox.Show("Não tens nenhuma lista em andamento! Vai ao ecrã de Planeamento criar uma primeiro.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                DesativarControlos();
+                MessageBox.Show("Erro a carregar a compra selecionada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
         }
 
@@ -90,16 +92,12 @@ namespace ProjetoDA.views
             if (cbTipoArtigo.SelectedValue is int tipoId) CarregarArtigos(tipoId);
         }
 
-        // ==========================================
-        // ATUALIZAÇÃO DAS DUAS GRELHAS E TOTAIS
-        // ==========================================
         private void AtualizarGrelhasETotais()
         {
             if (_compraAbertaId == 0) return;
 
             var todosItens = _itemCompraController.getItensDaCompra(_compraAbertaId);
 
-            // GRELHA DO MEIO (dtgItensCompra): Apenas Itens Planeados
             var itensPlaneados = todosItens.OfType<ItemPrevisto>().Select(i => new {
                 Id = i.Id,
                 Artigo = i.Artigo.Nome,
@@ -110,7 +108,6 @@ namespace ProjetoDA.views
             dtgItensCompra.DataSource = itensPlaneados;
             if (dtgItensCompra.Columns["Id"] != null) dtgItensCompra.Columns["Id"].Visible = false;
 
-            // GRELHA DA DIREITA (dtgcompra): O Carrinho Real (tudo o que tem quantidade > 0)
             var itensNoCarrinho = todosItens.Where(i => i.QuantidadeAdquirida > 0).Select(i => new {
                 Id = i.Id,
                 Artigo = i.Artigo.Nome,
@@ -125,7 +122,6 @@ namespace ProjetoDA.views
             if (dtgcompra.Columns["Preco"] != null) dtgcompra.Columns["Preco"].DefaultCellStyle.Format = "C2";
             if (dtgcompra.Columns["SubTotal"] != null) dtgcompra.Columns["SubTotal"].DefaultCellStyle.Format = "C2";
 
-            // TOTAIS DA COMPRA
             decimal totalCusto = itensNoCarrinho.Sum(i => i.Qtd * i.Preco);
             lbCustoTotaldaCompra.Text = totalCusto.ToString("C2");
 
@@ -134,25 +130,13 @@ namespace ProjetoDA.views
             lbRestanteDisponivel.ForeColor = restante < 0 ? System.Drawing.Color.Red : System.Drawing.Color.Green;
         }
 
-        // ==========================================
-        // ZONA DO MEIO: REGISTAR PREÇO DO PLANEADO
-        // ==========================================
         private void BtnAtualizarPrevisto_Click(object sender, EventArgs e)
         {
-            if (_compraAbertaId == 0 || dtgItensCompra.CurrentRow == null)
-            {
-                MessageBox.Show("Seleciona um item pendente na grelha do meio!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
+            if (_compraAbertaId == 0 || dtgItensCompra.CurrentRow == null) return;
             int itemId = Convert.ToInt32(dtgItensCompra.CurrentRow.Cells["Id"].Value);
             int qtdReal = (int)numQuantidadeArtigo.Value;
 
-            if (!decimal.TryParse(txtPreco.Text.Replace('.', ','), out decimal precoReal) || precoReal <= 0 || qtdReal <= 0)
-            {
-                MessageBox.Show("Insere uma quantidade e preço válidos (maiores que 0).", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            if (!decimal.TryParse(txtPreco.Text.Replace('.', ','), out decimal precoReal) || precoReal <= 0 || qtdReal <= 0) return;
 
             if (_itemCompraController.editarQuantidadeAdquirida(itemId, qtdReal, precoReal))
             {
@@ -162,21 +146,13 @@ namespace ProjetoDA.views
             }
         }
 
-        // ==========================================
-        // ZONA DA ESQUERDA: ADICIONAR EXTRA À LOJA
-        // ==========================================
         private void BtnAddNaoPrevisto_Click(object sender, EventArgs e)
         {
             if (_compraAbertaId == 0 || cbArtigo.SelectedValue == null) return;
-
             int artigoSelecionadoId = (int)cbArtigo.SelectedValue;
             int qtd = (int)numNaoPrevisto.Value;
 
-            if (!decimal.TryParse(txtPrecoNaoPrevisto.Text.Replace('.', ','), out decimal preco) || preco <= 0 || qtd <= 0)
-            {
-                MessageBox.Show("Insere uma quantidade e preço válidos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            if (!decimal.TryParse(txtPrecoNaoPrevisto.Text.Replace('.', ','), out decimal preco) || preco <= 0 || qtd <= 0) return;
 
             if (_compraController.adicionarItemNaoPrevisto(_compraAbertaId, artigoSelecionadoId, qtd, preco, "Item Extra"))
             {
@@ -186,29 +162,16 @@ namespace ProjetoDA.views
             }
         }
 
-        // ==========================================
-        // ZONA DA DIREITA: REMOVER DO CARRINHO E FECHAR
-        // ==========================================
         private void BtnRemoverItem_Click(object sender, EventArgs e)
         {
             if (dtgcompra.CurrentRow == null) return;
-
             int itemId = Convert.ToInt32(dtgcompra.CurrentRow.Cells["Id"].Value);
             string tipoItem = dtgcompra.CurrentRow.Cells["Tipo"].Value.ToString();
 
             if (MessageBox.Show("Tens a certeza que queres tirar isto do carrinho?", "Remover", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (tipoItem == "Planeado")
-                {
-                    // Se era planeado, não apagamos da BD, apenas zeramos para voltar ao estado "Pendente"
-                    _itemCompraController.editarQuantidadeAdquirida(itemId, 0, 0);
-                }
-                else
-                {
-                    // Se era extra, apagamos mesmo
-                    _itemCompraController.removerItem(itemId);
-                }
-
+                if (tipoItem == "Planeado") _itemCompraController.editarQuantidadeAdquirida(itemId, 0, 0);
+                else _itemCompraController.removerItem(itemId);
                 AtualizarGrelhasETotais();
             }
         }
@@ -223,7 +186,7 @@ namespace ProjetoDA.views
 
                 if (_compraController.fecharCompra(_compraAbertaId, userId))
                 {
-                    MessageBox.Show("Lista fechada! Missão cumprida socio.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Lista fechada", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
             }
@@ -231,21 +194,9 @@ namespace ProjetoDA.views
 
         private void BtnVoltarInicio_Click(object sender, EventArgs e)
         {
-            var formInicio = new Form1();
-            formInicio.Show();
+            var form1 = new Form1();
+            form1.Show();
             this.Close();
         }
-
-        private void DesativarControlos()
-        {
-            btnadicionaritem.Enabled = false;
-            btnAddNaoPrevisto.Enabled = false;
-            btnfinalizarcompra.Enabled = false;
-            btnremoveritem.Enabled = false;
-        }
-
-        // Os eventos vazios gerados pelo visual studio
-        private void txtPrecoNaoPrevisto_TextChanged(object sender, EventArgs e) { }
-        private void numNaoPrevisto_ValueChanged(object sender, EventArgs e) { }
     }
 }

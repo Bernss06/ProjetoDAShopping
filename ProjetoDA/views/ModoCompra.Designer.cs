@@ -124,7 +124,6 @@
             this.txtPrecoNaoPrevisto.Name = "txtPrecoNaoPrevisto";
             this.txtPrecoNaoPrevisto.Size = new System.Drawing.Size(154, 22);
             this.txtPrecoNaoPrevisto.TabIndex = 13;
-            this.txtPrecoNaoPrevisto.TextChanged += new System.EventHandler(this.txtPrecoNaoPrevisto_TextChanged);
             // 
             // numNaoPrevisto
             // 
@@ -132,7 +131,6 @@
             this.numNaoPrevisto.Name = "numNaoPrevisto";
             this.numNaoPrevisto.Size = new System.Drawing.Size(120, 22);
             this.numNaoPrevisto.TabIndex = 12;
-            this.numNaoPrevisto.ValueChanged += new System.EventHandler(this.numNaoPrevisto_ValueChanged);
             // 
             // label4
             // 
