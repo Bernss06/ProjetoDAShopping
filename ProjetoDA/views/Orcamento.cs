@@ -20,7 +20,6 @@ namespace ProjetoDA.views
         private int _mesSelecionado;
         private int _anoSelecionado;
 
-        // Referência ao Form1 que abriu este formulário (pode ser null)
         private Form1 _parent;
 
         public Orcamento()
@@ -31,13 +30,10 @@ namespace ProjetoDA.views
             _mesSelecionado = DateTime.Now.Month;
             _anoSelecionado = DateTime.Now.Year;
 
-            // Registar handlers
-          
             this.btndefinirOrçamento.Click += btndefinirOrçamento_Click;
             this.btnVoltarInicio.Click += btnVoltarInicio_Click;
         }
 
-        // Construtor que recebe o Form1 para permitir atualização da label no Form1
         public Orcamento(Form1 parent) : this()
         {
             _parent = parent;
@@ -55,8 +51,8 @@ namespace ProjetoDA.views
                     lblOrcamentos.Text = FormatCurrency(orcamentoAtual.ValorMaximo);
                     txtOrcamento.Text = orcamentoAtual.ValorMaximo.ToString("N2", CultureInfo.CurrentCulture);
 
-                    // Atualiza a label do Form1 se houver um parent
-                    _parent?    .AtualizarOrcamentoLabel(orcamentoAtual.ValorMaximo);
+                    // Adicionado o (int) para converter e não dar erro de incompatibilidade com o Form1
+                    _parent?.AtualizarOrcamentoLabel((int)orcamentoAtual.ValorMaximo);
                 }
                 else
                 {
@@ -72,7 +68,6 @@ namespace ProjetoDA.views
 
         private void btndefinirOrçamento_Click(object sender, EventArgs e)
         {
-            // Validação e gravação do orçamento
             var texto = txtOrcamento.Text?.Trim();
             if (string.IsNullOrEmpty(texto))
             {
@@ -80,9 +75,10 @@ namespace ProjetoDA.views
                 return;
             }
 
-            if (!int.TryParse(texto, NumberStyles.Number, CultureInfo.CurrentCulture, out var valor))
+            // AQUI: Passou a decimal.TryParse para aceitar números com vírgula!
+            if (!decimal.TryParse(texto, NumberStyles.Number, CultureInfo.CurrentCulture, out var valor))
             {
-                MessageBox.Show("Formato inválido. Use números inteiros (ex.: 1000).", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Formato inválido. Use números válidos (ex.: 1000 ou 1000,50).", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -94,9 +90,8 @@ namespace ProjetoDA.views
 
             try
             {
-                // Recupera o ID atual do utilizador da sessão (não usa o valor armazenado no construtor)
                 int userId = SessionManager.UtilizadorLogadoId;
-                
+
                 if (userId == 0)
                 {
                     MessageBox.Show("Erro: Nenhum utilizador logado. Por favor, faça login novamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -109,8 +104,8 @@ namespace ProjetoDA.views
                 {
                     CarregarOrcamento();
 
-                    // Notifica o Form1 (se existir) para atualizar a label com o novo valor
-                    _parent?.AtualizarOrcamentoLabel(valor);
+                    // Adicionado o (int) para o Form1
+                    _parent?.AtualizarOrcamentoLabel((int)valor);
 
                     MessageBox.Show("Orçamento guardado com sucesso.", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -127,28 +122,22 @@ namespace ProjetoDA.views
 
         private void btnVoltarInicio_Click(object sender, EventArgs e)
         {
-            // Se temos referência ao Form1 parent, mostra-o novamente
             if (_parent != null)
             {
                 _parent.Show();
             }
             else
-            {                                               
-                // Caso contrário, cria uma nova instância
+            {
                 Form1 form1 = new Form1();
                 form1.Show();
             }
-
-            // Esconde o formulário atual
             this.Hide();
         }
 
-        private string FormatCurrency(int valor)
+        // AQUI: Passou a aceitar decimal no formatador de moeda
+        private string FormatCurrency(decimal valor)
         {
-            // Formata conforme cultura do utilizador, com símbolo de moeda
             return string.Format(CultureInfo.CurrentCulture, "{0:C}", valor);
         }
-
-        
     }
 }

@@ -17,7 +17,8 @@ namespace ProjetoDA.controllers
             }
         }
 
-        public bool salvarOuAtualizarOrcamento(int mes, int ano, int valorMaximo, int utilizadorLogadoId)
+        // AQUI: Passou a aceitar o 'decimal' para receber os cêntimos!
+        public bool salvarOuAtualizarOrcamento(int mes, int ano, decimal valorMaximo, int utilizadorLogadoId)
         {
             using (var db = new ShoppingContext())
             {

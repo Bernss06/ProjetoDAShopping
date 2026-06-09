@@ -67,10 +67,10 @@ namespace ProjetoDA
 
                     // Calcular valor gasto em compras do mês/ano atual
                     decimal valorGasto = CalcularValorGastoDoMes(mesCurso, anoCurso);
-                    lbValorDoOrcamentoGasto.Text = FormatarMoeda((int)valorGasto);
+                    lbValorDoOrcamentoGasto.Text = FormatarMoeda(valorGasto);
 
                     // Calcular valor disponível (Total - Gasto)
-                    int valorDisponivel = orcamentoAtual.ValorMaximo - (int)valorGasto;
+                    decimal valorDisponivel = orcamentoAtual.ValorMaximo - valorGasto;
                     lbValorOrcamentoDisponivel.Text = FormatarMoeda(valorDisponivel);
                 }
                 else
@@ -111,7 +111,7 @@ namespace ProjetoDA
             }
         }
 
-        private string FormatarMoeda(int valor)
+        private string FormatarMoeda(decimal valor)
         {
             // Formata o valor como moeda (ex: 123,45 €)
             return valor.ToString("N2", CultureInfo.CurrentCulture) + " €";
@@ -122,7 +122,7 @@ namespace ProjetoDA
             try
             {
                 // Buscar TODAS as compras
-                List<Compra> compras = compraController.getTodasAsCompras();
+                List<Compra> compras = compraController.getComprasAbertas();
 
                 // Limpar as linhas anteriores
                 grdCompras.DataSource = null;

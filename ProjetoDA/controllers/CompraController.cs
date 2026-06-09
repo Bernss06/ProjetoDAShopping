@@ -93,9 +93,32 @@ namespace ProjetoDA.controllers
 
                 if (compra == null || user == null || compra.Fechada) return false;
 
+                // 1. Muda os estados da compra
                 compra.Fechada = true;
                 compra.DataFechada = DateTime.Now;
                 compra.UserFecha = user;
+
+                // 2. Calcula o valor final exato gasto em todos os itens do carrinho
+                decimal custoTotalDaCompra = db.ItensCompra
+                    .Where(i => i.Compra.Id == compraId && i.QuantidadeAdquirida > 0)
+                    .Select(i => i.QuantidadeAdquirida * i.PrecoUnitario)
+                    .DefaultIfEmpty(0)
+                    .Sum();
+
+                // 3. Atualiza o valor total guardado na compra
+                compra.ValorTotal = custoTotalDaCompra;
+
+                // 4. A MAGIA: Procurar o Orçamento deste mês/ano e subtrair o custo
+                int mesAtual = DateTime.Now.Month;
+                int anoAtual = DateTime.Now.Year;
+
+                Orcamento orcamentoDesteMes = db.Orcamentos.FirstOrDefault(o => o.Mes == mesAtual && o.Ano == anoAtual);
+
+                if (orcamentoDesteMes != null)
+                {
+                    // O ValorMaximo (o teu plafond inicial de 500) vai ser cortado no valor gasto (ex: 500 - 20 = 480)
+                    orcamentoDesteMes.ValorMaximo -= custoTotalDaCompra;
+                }
 
                 db.SaveChanges();
                 return true;
