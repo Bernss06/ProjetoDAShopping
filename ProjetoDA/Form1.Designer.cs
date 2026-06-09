@@ -34,7 +34,6 @@
             this.btntipoartigo = new System.Windows.Forms.Button();
             this.btnplaneamento = new System.Windows.Forms.Button();
             this.btnorcamento = new System.Windows.Forms.Button();
-            this.btninicio = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.lbValorOrcamentoDisponivel = new System.Windows.Forms.Label();
@@ -70,7 +69,6 @@
             this.groupBox1.Controls.Add(this.btntipoartigo);
             this.groupBox1.Controls.Add(this.btnplaneamento);
             this.groupBox1.Controls.Add(this.btnorcamento);
-            this.groupBox1.Controls.Add(this.btninicio);
             this.groupBox1.Location = new System.Drawing.Point(-4, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(258, 569);
@@ -91,9 +89,9 @@
             // btnartigos
             // 
             this.btnartigos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnartigos.Location = new System.Drawing.Point(31, 402);
+            this.btnartigos.Location = new System.Drawing.Point(31, 368);
             this.btnartigos.Name = "btnartigos";
-            this.btnartigos.Size = new System.Drawing.Size(202, 55);
+            this.btnartigos.Size = new System.Drawing.Size(202, 76);
             this.btnartigos.TabIndex = 5;
             this.btnartigos.Text = "Artigos";
             this.btnartigos.UseVisualStyleBackColor = true;
@@ -102,9 +100,9 @@
             // btntipoartigo
             // 
             this.btntipoartigo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btntipoartigo.Location = new System.Drawing.Point(31, 311);
+            this.btntipoartigo.Location = new System.Drawing.Point(31, 257);
             this.btntipoartigo.Name = "btntipoartigo";
-            this.btntipoartigo.Size = new System.Drawing.Size(202, 55);
+            this.btntipoartigo.Size = new System.Drawing.Size(202, 75);
             this.btntipoartigo.TabIndex = 4;
             this.btntipoartigo.Text = "Tipos Artigo";
             this.btntipoartigo.UseVisualStyleBackColor = true;
@@ -113,9 +111,9 @@
             // btnplaneamento
             // 
             this.btnplaneamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnplaneamento.Location = new System.Drawing.Point(31, 223);
+            this.btnplaneamento.Location = new System.Drawing.Point(31, 145);
             this.btnplaneamento.Name = "btnplaneamento";
-            this.btnplaneamento.Size = new System.Drawing.Size(202, 54);
+            this.btnplaneamento.Size = new System.Drawing.Size(202, 73);
             this.btnplaneamento.TabIndex = 2;
             this.btnplaneamento.Text = "Planeamento";
             this.btnplaneamento.UseVisualStyleBackColor = true;
@@ -124,23 +122,13 @@
             // btnorcamento
             // 
             this.btnorcamento.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnorcamento.Location = new System.Drawing.Point(31, 133);
+            this.btnorcamento.Location = new System.Drawing.Point(31, 40);
             this.btnorcamento.Name = "btnorcamento";
-            this.btnorcamento.Size = new System.Drawing.Size(202, 54);
+            this.btnorcamento.Size = new System.Drawing.Size(202, 69);
             this.btnorcamento.TabIndex = 1;
             this.btnorcamento.Text = "Orçamentos";
             this.btnorcamento.UseVisualStyleBackColor = true;
             this.btnorcamento.Click += new System.EventHandler(this.btnorcamento_Click);
-            // 
-            // btninicio
-            // 
-            this.btninicio.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btninicio.Location = new System.Drawing.Point(31, 40);
-            this.btninicio.Name = "btninicio";
-            this.btninicio.Size = new System.Drawing.Size(202, 57);
-            this.btninicio.TabIndex = 0;
-            this.btninicio.Text = "Inicio";
-            this.btninicio.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -151,7 +139,7 @@
             this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Location = new System.Drawing.Point(260, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(732, 569);
+            this.groupBox2.Size = new System.Drawing.Size(716, 569);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
@@ -161,7 +149,7 @@
             this.groupBox6.Controls.Add(this.label6);
             this.groupBox6.Location = new System.Drawing.Point(495, 143);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(223, 67);
+            this.groupBox6.Size = new System.Drawing.Size(211, 67);
             this.groupBox6.TabIndex = 3;
             this.groupBox6.TabStop = false;
             // 
@@ -220,9 +208,9 @@
             this.groupBox7.Controls.Add(this.grdCompras);
             this.groupBox7.Controls.Add(this.btnfecharcompra);
             this.groupBox7.Controls.Add(this.btnnovacompra);
-            this.groupBox7.Location = new System.Drawing.Point(17, 235);
+            this.groupBox7.Location = new System.Drawing.Point(6, 235);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(701, 319);
+            this.groupBox7.Size = new System.Drawing.Size(700, 319);
             this.groupBox7.TabIndex = 4;
             this.groupBox7.TabStop = false;
             // 
@@ -293,9 +281,9 @@
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Location = new System.Drawing.Point(17, 21);
+            this.groupBox3.Location = new System.Drawing.Point(17, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(701, 100);
+            this.groupBox3.Size = new System.Drawing.Size(689, 109);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             // 
@@ -334,7 +322,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(990, 581);
+            this.ClientSize = new System.Drawing.Size(988, 581);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
@@ -367,7 +355,6 @@
         private System.Windows.Forms.Button btntipoartigo;
         private System.Windows.Forms.Button btnplaneamento;
         private System.Windows.Forms.Button btnorcamento;
-        private System.Windows.Forms.Button btninicio;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.DataGridView grdCompras;

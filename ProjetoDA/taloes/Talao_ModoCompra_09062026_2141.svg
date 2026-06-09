@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="350" height="320" style="background-color: #fafafa; font-family: 'Courier New', monospace; font-size: 14px; fill: #111;">
+<text x="175" y="40" text-anchor="middle" font-size="22" font-weight="bold">🛒 PROJETO DA SHOPPING</text>
+<text x="175" y="65" text-anchor="middle" font-size="12" fill="#555">Lista: ModoCompra</text>
+<text x="175" y="85" text-anchor="middle" font-size="12" fill="#555">Data: 09/06/2026 21:41</text>
+<line x1="20" y1="105" x2="330" y2="105" stroke="#111" stroke-dasharray="6,4" stroke-width="1.5" />
+<text x="20" y="125" font-weight="bold">Artigo</text>
+<text x="240" y="125" text-anchor="end" font-weight="bold">Qtd</text>
+<text x="330" y="125" text-anchor="end" font-weight="bold">Preço</text>
+<text x="20" y="150">Camisola de Malha</text>
+<text x="240" y="150" text-anchor="end">1</text>
+<text x="330" y="150" text-anchor="end">16,00 €</text>
+<text x="20" y="175">Pijama</text>
+<text x="240" y="175" text-anchor="end">1</text>
+<text x="330" y="175" text-anchor="end">24,00 €</text>
+<text x="20" y="200">Casaco de Inverno</text>
+<text x="240" y="200" text-anchor="end">1</text>
+<text x="330" y="200" text-anchor="end">17,00 €</text>
+<text x="20" y="225">Sapatilhas Casuais</text>
+<text x="240" y="225" text-anchor="end">1</text>
+<text x="330" y="225" text-anchor="end">29,00 €</text>
+<line x1="20" y1="250" x2="330" y2="250" stroke="#111" stroke-dasharray="6,4" stroke-width="1.5" />
+<text x="20" y="280" font-size="18" font-weight="bold">TOTAL A PAGAR:</text>
+<text x="330" y="280" text-anchor="end" font-size="18" font-weight="bold">86,00 €</text>
+<text x="175" y="320" text-anchor="middle" font-size="12">Obrigado pela sua visita!</text>
+</svg>
