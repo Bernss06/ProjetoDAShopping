@@ -176,5 +176,12 @@ namespace ProjetoDA
             modoCompraForm.Show();
             this.Hide();
         }
+
+        private void btnsair_Click(object sender, EventArgs e)
+        {
+            var registerForm = new views.FormRegistro();
+            registerForm.Show();
+            this.Hide();
+        }
     }
 }

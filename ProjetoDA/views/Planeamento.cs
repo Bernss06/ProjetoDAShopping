@@ -14,7 +14,7 @@ namespace ProjetoDA.views
         private TipoArtigoController _tipoArtigoController;
         private ItemCompraController _itemCompraController;
 
-        private int _compraAbertaId = 0; // Guarda a lista que estamos a planear
+        private int _compraAbertaId = 0; // Guarda o ID da lista que estamos a planear
 
         public Planeamento()
         {
@@ -25,6 +25,7 @@ namespace ProjetoDA.views
             _tipoArtigoController = new TipoArtigoController();
             _itemCompraController = new ItemCompraController();
 
+            // Ligar Eventos
             this.Load += Planeamento_Load;
             this.btnVoltarInicio.Click += BtnVoltarInicio_Click;
             this.comboTipoArtigo.SelectedIndexChanged += ComboTipoArtigo_SelectedIndexChanged;
@@ -38,28 +39,17 @@ namespace ProjetoDA.views
             CarregarTiposArtigo();
             CarregarArtigos(0);
 
-            // Verifica se já deixaste uma lista a meio
-            var comprasAbertas = _compraController.getComprasAbertas();
-            if (comprasAbertas.Count > 0)
-            {
-                var compraAtual = comprasAbertas.First();
-                _compraAbertaId = compraAtual.Id;
+            // O ecrã abre sempre limpo, com a caixa e o botão desbloqueados para criares a lista!
+            txtnomeCompra.Text = "";
+            txtnomeCompra.ReadOnly = false;
+            btnAddCompra.Enabled = true;
 
-                txtnomeCompra.Text = compraAtual.NomeCompra;
-                txtnomeCompra.ReadOnly = true;
-                btnAddCompra.Enabled = false;
-
-                AtualizarGrelhaDeItens();
-            }
-            else
-            {
-                // Modo criação de lista nova
-                btnAddItem.Enabled = false;
-                btnRemoveItem.Enabled = false;
-            }
+            // Mantemos apenas a zona dos artigos bloqueada até carregares no botão de criar a lista
+            btnAddItem.Enabled = false;
+            btnRemoveItem.Enabled = false;
         }
 
-        // --- CRIAR A COMPRA ABERTA ---
+        // --- CRIAR A LISTA DE COMPRAS ---
         private void BtnAddCompra_Click(object sender, EventArgs e)
         {
             string nome = txtnomeCompra.Text.Trim();
@@ -77,6 +67,8 @@ namespace ProjetoDA.views
 
                 txtnomeCompra.ReadOnly = true;
                 btnAddCompra.Enabled = false;
+
+                // Ativa os botões para adicionar e remover os artigos
                 btnAddItem.Enabled = true;
                 btnRemoveItem.Enabled = true;
 
@@ -148,6 +140,8 @@ namespace ProjetoDA.views
 
         private void BtnVoltarInicio_Click(object sender, EventArgs e)
         {
+            var formInicio = new Form1();
+            formInicio.Show();
             this.Close();
         }
     }
