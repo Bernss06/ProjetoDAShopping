@@ -34,6 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtPesquisaCustom = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnNovaCompra = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.drgListaDeTodasAsCompras)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,11 +90,22 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Pesquisa Rapida";
             // 
+            // btnNovaCompra
+            // 
+            this.btnNovaCompra.Location = new System.Drawing.Point(372, 12);
+            this.btnNovaCompra.Name = "btnNovaCompra";
+            this.btnNovaCompra.Size = new System.Drawing.Size(113, 52);
+            this.btnNovaCompra.TabIndex = 6;
+            this.btnNovaCompra.Text = "Nova Compra";
+            this.btnNovaCompra.UseVisualStyleBackColor = true;
+            this.btnNovaCompra.Click += new System.EventHandler(this.btnNovaCompra_Click);
+            // 
             // ListasDeCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(500, 396);
+            this.Controls.Add(this.btnNovaCompra);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtPesquisaCustom);
             this.Controls.Add(this.label1);
@@ -116,5 +128,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtPesquisaCustom;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnNovaCompra;
     }
 }

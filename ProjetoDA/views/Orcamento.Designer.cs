@@ -37,9 +37,14 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnVoltarInicio = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.dtgOrcamentos = new System.Windows.Forms.DataGridView();
+            this.btnEditOrcamento = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgOrcamentos)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -47,7 +52,7 @@
             this.groupBox1.Controls.Add(this.btndefinirOrçamento);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(224, 78);
+            this.groupBox1.Location = new System.Drawing.Point(18, 85);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(373, 341);
             this.groupBox1.TabIndex = 0;
@@ -126,11 +131,41 @@
             this.btnVoltarInicio.UseVisualStyleBackColor = true;
             this.btnVoltarInicio.Click += new System.EventHandler(this.btnVoltarInicio_Click);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.btnEditOrcamento);
+            this.groupBox4.Controls.Add(this.dtgOrcamentos);
+            this.groupBox4.Location = new System.Drawing.Point(397, 85);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(373, 320);
+            this.groupBox4.TabIndex = 3;
+            this.groupBox4.TabStop = false;
+            // 
+            // dtgOrcamentos
+            // 
+            this.dtgOrcamentos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgOrcamentos.Location = new System.Drawing.Point(6, 11);
+            this.dtgOrcamentos.Name = "dtgOrcamentos";
+            this.dtgOrcamentos.RowHeadersWidth = 51;
+            this.dtgOrcamentos.RowTemplate.Height = 24;
+            this.dtgOrcamentos.Size = new System.Drawing.Size(361, 229);
+            this.dtgOrcamentos.TabIndex = 0;
+            // 
+            // btnEditOrcamento
+            // 
+            this.btnEditOrcamento.Location = new System.Drawing.Point(113, 256);
+            this.btnEditOrcamento.Name = "btnEditOrcamento";
+            this.btnEditOrcamento.Size = new System.Drawing.Size(158, 40);
+            this.btnEditOrcamento.TabIndex = 3;
+            this.btnEditOrcamento.Text = "Editar Orcamento";
+            this.btnEditOrcamento.UseVisualStyleBackColor = true;
+            // 
             // Orcamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "Orcamento";
@@ -141,6 +176,8 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgOrcamentos)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -156,5 +193,8 @@
         private System.Windows.Forms.TextBox txtOrcamento;
         private System.Windows.Forms.Label lblOrcamentos;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.DataGridView dtgOrcamentos;
+        private System.Windows.Forms.Button btnEditOrcamento;
     }
 }

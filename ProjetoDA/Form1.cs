@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProjetoDA.controllers;
 using ProjetoDA.modelos;
+using System.Globalization;
 
 namespace ProjetoDA
 {
     public partial class Form1 : Form
     {
         private CompraController compraController = new CompraController();
+        private OrcamentoController orcamentoController = new OrcamentoController();
 
         public Form1()
         {
@@ -27,6 +29,7 @@ namespace ProjetoDA
         private void Form1_Load(object sender, EventArgs e)
         {
             CarregarCompras();
+            CarregarDadosOrcamento();
 
             // 1. Mostrar o Nome do Utilizador Logado na label8
             int userId = SessionManager.UtilizadorLogadoId;
@@ -43,7 +46,75 @@ namespace ProjetoDA
             }
 
             // 2. Mostrar a Data formatada na label9
-            label9.Text = DateTime.Now.ToString("dddd, dd - HH:mm", new System.Globalization.CultureInfo("pt-PT"));
+            label9.Text = DateTime.Now.ToString("dddd, dd - HH:mm", new CultureInfo("pt-PT"));
+        }
+
+        private void CarregarDadosOrcamento()
+        {
+            try
+            {
+                int mesCurso = DateTime.Now.Month;
+                int anoCurso = DateTime.Now.Year;
+
+                // Buscar o orçamento do mês/ano atual
+                var orcamentos = orcamentoController.getOrcamentos();
+                var orcamentoAtual = orcamentos.FirstOrDefault(o => o.Mes == mesCurso && o.Ano == anoCurso);
+
+                if (orcamentoAtual != null)
+                {
+                    // Atualizar label do Total do Orçamento
+                    lbValorTotalOrcamento.Text = FormatarMoeda(orcamentoAtual.ValorMaximo);
+
+                    // Calcular valor gasto em compras do mês/ano atual
+                    decimal valorGasto = CalcularValorGastoDoMes(mesCurso, anoCurso);
+                    lbValorDoOrcamentoGasto.Text = FormatarMoeda((int)valorGasto);
+
+                    // Calcular valor disponível (Total - Gasto)
+                    int valorDisponivel = orcamentoAtual.ValorMaximo - (int)valorGasto;
+                    lbValorOrcamentoDisponivel.Text = FormatarMoeda(valorDisponivel);
+                }
+                else
+                {
+                    // Sem orçamento definido para este mês
+                    lbValorTotalOrcamento.Text = "Sem Orçamento";
+                    lbValorDoOrcamentoGasto.Text = "0,00 €";
+                    lbValorOrcamentoDisponivel.Text = "0,00 €";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar dados de orçamento: " + ex.Message);
+            }
+        }
+
+        private decimal CalcularValorGastoDoMes(int mes, int ano)
+        {
+            try
+            {
+                var todasAsCompras = compraController.getTodasAsCompras();
+
+                // Filtrar compras do mês/ano atual que estão fechadas
+                var comprasDoMes = todasAsCompras
+                    .Where(c => c.DataCriacao.Month == mes && 
+                                c.DataCriacao.Year == ano && 
+                                c.Fechada == true)
+                    .ToList();
+
+                // Somar todos os valores totais das compras
+                decimal total = comprasDoMes.Sum(c => c.ValorTotal);
+
+                return total;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        private string FormatarMoeda(int valor)
+        {
+            // Formata o valor como moeda (ex: 123,45 €)
+            return valor.ToString("N2", CultureInfo.CurrentCulture) + " €";
         }
 
         public void CarregarCompras()
@@ -106,6 +177,14 @@ namespace ProjetoDA
             orcamentoForm.Show();
             this.Hide();
         }
+
+        private void btnplaneamento_Click(object sender, EventArgs e)
+        {
+            var planeamentoForm = new views.Planeamento();
+            planeamentoForm.Show();
+            this.Hide();
+        }
+
         private void btnartigo_Click(object sender, EventArgs e)
         {
             var artigoForm = new views.Artigos();
@@ -122,8 +201,8 @@ namespace ProjetoDA
 
         public void AtualizarOrcamentoLabel(int valor)
         {
-            // Atualiza a label com o novo valor do orçamento
-            // lblOrcamento.Text = valor.ToString("C");
+            // Atualiza as labels quando o orçamento é alterado
+            CarregarDadosOrcamento();
         }
 
         private void btncompra_Click(object sender, EventArgs e)
@@ -141,6 +220,7 @@ namespace ProjetoDA
             modoCompraForm.Show();
             this.Hide();
         }
+
         private void btnnovacompra_Click(object sender, EventArgs e)
         {
             var planeamentoForm = new views.Planeamento();
@@ -148,41 +228,18 @@ namespace ProjetoDA
             this.Hide();
         }
 
-        // =======================================================
-        // AQUI ESTÁ A LÓGICA DE ABRIR A COMPRA SELECIONADA NA GRELHA
-        // =======================================================
         private void btnfecharcompra_Click(object sender, EventArgs e)
         {
-            if (grdCompras.CurrentRow != null)
-            {
-                int compraSelecionadaId = Convert.ToInt32(grdCompras.CurrentRow.Cells["Id"].Value);
-
-                var modoCompraForm = new views.ModoCompra(compraSelecionadaId);
-
-                this.Hide();
-                modoCompraForm.ShowDialog(); // Pausa o Form1 até o ModoCompra fechar
-
-                this.Show();
-                CarregarCompras(); // Atualiza a grelha quando voltares!
-            }
-            else
-            {
-                MessageBox.Show("Seleciona uma compra na tabela primeiro!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            // Implementar lógica para fechar compra selecionada
         }
 
         private void btnsair_Click(object sender, EventArgs e)
         {
-            var registerForm = new views.FormRegistro();
-            registerForm.Show();
-            this.Hide();
+            this.Close();
         }
 
-        private void btnplaneamento_Click(object sender, EventArgs e)
+        private void grdCompras_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var planeamentoForm = new views.ListasDeCompra();
-            planeamentoForm.Show();
-            this.Hide();
         }
     }
 }

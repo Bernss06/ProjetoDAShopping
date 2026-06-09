@@ -37,18 +37,17 @@
             this.btninicio = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lbValorOrcamentoDisponivel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lbValorDoOrcamentoGasto = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.grdCompras = new System.Windows.Forms.DataGridView();
             this.btnfecharcompra = new System.Windows.Forms.Button();
-            this.btndetalhes = new System.Windows.Forms.Button();
             this.btnnovacompra = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lbValorTotalOrcamento = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -77,7 +76,6 @@
             this.groupBox1.Size = new System.Drawing.Size(258, 569);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
             // 
             // btnsair
             // 
@@ -91,9 +89,9 @@
             // 
             // btnartigos
             // 
-            this.btnartigos.Location = new System.Drawing.Point(31, 284);
+            this.btnartigos.Location = new System.Drawing.Point(31, 402);
             this.btnartigos.Name = "btnartigos";
-            this.btnartigos.Size = new System.Drawing.Size(202, 42);
+            this.btnartigos.Size = new System.Drawing.Size(202, 55);
             this.btnartigos.TabIndex = 5;
             this.btnartigos.Text = "Artigos";
             this.btnartigos.UseVisualStyleBackColor = true;
@@ -101,9 +99,9 @@
             // 
             // btntipoartigo
             // 
-            this.btntipoartigo.Location = new System.Drawing.Point(31, 221);
+            this.btntipoartigo.Location = new System.Drawing.Point(31, 311);
             this.btntipoartigo.Name = "btntipoartigo";
-            this.btntipoartigo.Size = new System.Drawing.Size(202, 42);
+            this.btntipoartigo.Size = new System.Drawing.Size(202, 55);
             this.btntipoartigo.TabIndex = 4;
             this.btntipoartigo.Text = "Tipos Artigo";
             this.btntipoartigo.UseVisualStyleBackColor = true;
@@ -111,9 +109,9 @@
             // 
             // btnplaneamento
             // 
-            this.btnplaneamento.Location = new System.Drawing.Point(31, 158);
+            this.btnplaneamento.Location = new System.Drawing.Point(31, 223);
             this.btnplaneamento.Name = "btnplaneamento";
-            this.btnplaneamento.Size = new System.Drawing.Size(202, 42);
+            this.btnplaneamento.Size = new System.Drawing.Size(202, 54);
             this.btnplaneamento.TabIndex = 2;
             this.btnplaneamento.Text = "Planeamento";
             this.btnplaneamento.UseVisualStyleBackColor = true;
@@ -121,9 +119,9 @@
             // 
             // btnorcamento
             // 
-            this.btnorcamento.Location = new System.Drawing.Point(31, 97);
+            this.btnorcamento.Location = new System.Drawing.Point(31, 133);
             this.btnorcamento.Name = "btnorcamento";
-            this.btnorcamento.Size = new System.Drawing.Size(202, 42);
+            this.btnorcamento.Size = new System.Drawing.Size(202, 54);
             this.btnorcamento.TabIndex = 1;
             this.btnorcamento.Text = "Orçamentos";
             this.btnorcamento.UseVisualStyleBackColor = true;
@@ -133,7 +131,7 @@
             // 
             this.btninicio.Location = new System.Drawing.Point(31, 40);
             this.btninicio.Name = "btninicio";
-            this.btninicio.Size = new System.Drawing.Size(202, 42);
+            this.btninicio.Size = new System.Drawing.Size(202, 57);
             this.btninicio.TabIndex = 0;
             this.btninicio.Text = "Inicio";
             this.btninicio.UseVisualStyleBackColor = true;
@@ -150,27 +148,25 @@
             this.groupBox2.Size = new System.Drawing.Size(732, 569);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.label5);
+            this.groupBox6.Controls.Add(this.lbValorOrcamentoDisponivel);
             this.groupBox6.Controls.Add(this.label6);
             this.groupBox6.Location = new System.Drawing.Point(495, 152);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(223, 48);
             this.groupBox6.TabIndex = 3;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "groupBox6";
             // 
-            // label5
+            // lbValorOrcamentoDisponivel
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(105, 19);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(44, 16);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "label5";
+            this.lbValorOrcamentoDisponivel.AutoSize = true;
+            this.lbValorOrcamentoDisponivel.Location = new System.Drawing.Point(105, 19);
+            this.lbValorOrcamentoDisponivel.Name = "lbValorOrcamentoDisponivel";
+            this.lbValorOrcamentoDisponivel.Size = new System.Drawing.Size(44, 16);
+            this.lbValorOrcamentoDisponivel.TabIndex = 5;
+            this.lbValorOrcamentoDisponivel.Text = "label5";
             // 
             // label6
             // 
@@ -183,23 +179,22 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.label3);
+            this.groupBox5.Controls.Add(this.lbValorDoOrcamentoGasto);
             this.groupBox5.Controls.Add(this.label4);
             this.groupBox5.Location = new System.Drawing.Point(257, 152);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(223, 48);
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "groupBox5";
             // 
-            // label3
+            // lbValorDoOrcamentoGasto
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(72, 19);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 16);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "label3";
+            this.lbValorDoOrcamentoGasto.AutoSize = true;
+            this.lbValorDoOrcamentoGasto.Location = new System.Drawing.Point(72, 19);
+            this.lbValorDoOrcamentoGasto.Name = "lbValorDoOrcamentoGasto";
+            this.lbValorDoOrcamentoGasto.Size = new System.Drawing.Size(44, 16);
+            this.lbValorDoOrcamentoGasto.TabIndex = 3;
+            this.lbValorDoOrcamentoGasto.Text = "label3";
             // 
             // label4
             // 
@@ -214,14 +209,12 @@
             // 
             this.groupBox7.Controls.Add(this.grdCompras);
             this.groupBox7.Controls.Add(this.btnfecharcompra);
-            this.groupBox7.Controls.Add(this.btndetalhes);
             this.groupBox7.Controls.Add(this.btnnovacompra);
             this.groupBox7.Location = new System.Drawing.Point(17, 235);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(701, 319);
             this.groupBox7.TabIndex = 4;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "groupBox7";
             // 
             // grdCompras
             // 
@@ -235,28 +228,19 @@
             // 
             // btnfecharcompra
             // 
-            this.btnfecharcompra.Location = new System.Drawing.Point(506, 267);
+            this.btnfecharcompra.Location = new System.Drawing.Point(398, 254);
             this.btnfecharcompra.Name = "btnfecharcompra";
-            this.btnfecharcompra.Size = new System.Drawing.Size(189, 39);
+            this.btnfecharcompra.Size = new System.Drawing.Size(179, 52);
             this.btnfecharcompra.TabIndex = 3;
             this.btnfecharcompra.Text = "Fechar Compra";
             this.btnfecharcompra.UseVisualStyleBackColor = true;
             this.btnfecharcompra.Click += new System.EventHandler(this.btnfecharcompra_Click);
             // 
-            // btndetalhes
-            // 
-            this.btndetalhes.Location = new System.Drawing.Point(256, 267);
-            this.btndetalhes.Name = "btndetalhes";
-            this.btndetalhes.Size = new System.Drawing.Size(198, 39);
-            this.btndetalhes.TabIndex = 1;
-            this.btndetalhes.Text = "Ver Detalhes";
-            this.btndetalhes.UseVisualStyleBackColor = true;
-            // 
             // btnnovacompra
             // 
-            this.btnnovacompra.Location = new System.Drawing.Point(17, 267);
+            this.btnnovacompra.Location = new System.Drawing.Point(124, 254);
             this.btnnovacompra.Name = "btnnovacompra";
-            this.btnnovacompra.Size = new System.Drawing.Size(165, 39);
+            this.btnnovacompra.Size = new System.Drawing.Size(165, 52);
             this.btnnovacompra.TabIndex = 0;
             this.btnnovacompra.Text = "Nova Compra";
             this.btnnovacompra.UseVisualStyleBackColor = true;
@@ -264,23 +248,22 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.label2);
+            this.groupBox4.Controls.Add(this.lbValorTotalOrcamento);
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Location = new System.Drawing.Point(17, 152);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(223, 48);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "groupBox4";
             // 
-            // label2
+            // lbValorTotalOrcamento
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(74, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 16);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "label2";
+            this.lbValorTotalOrcamento.AutoSize = true;
+            this.lbValorTotalOrcamento.Location = new System.Drawing.Point(74, 19);
+            this.lbValorTotalOrcamento.Name = "lbValorTotalOrcamento";
+            this.lbValorTotalOrcamento.Size = new System.Drawing.Size(44, 16);
+            this.lbValorTotalOrcamento.TabIndex = 1;
+            this.lbValorTotalOrcamento.Text = "label2";
             // 
             // label1
             // 
@@ -301,7 +284,6 @@
             this.groupBox3.Size = new System.Drawing.Size(701, 100);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "groupBox3";
             // 
             // label9
             // 
@@ -372,13 +354,12 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.DataGridView grdCompras;
         private System.Windows.Forms.Button btnfecharcompra;
-        private System.Windows.Forms.Button btndetalhes;
         private System.Windows.Forms.Button btnnovacompra;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbValorTotalOrcamento;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lbValorOrcamentoDisponivel;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbValorDoOrcamentoGasto;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
