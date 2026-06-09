@@ -288,7 +288,9 @@ namespace ProjetoDA.views
 
         private void BtnVoltarInicio_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Form1 form1 = new Form1();
+            form1.Show();
+            this.Close(); // Fecha a página do planeamento para poupar memória
         }
 
         private void LimparInputs()

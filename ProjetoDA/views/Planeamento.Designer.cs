@@ -44,6 +44,8 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.cbSelecionarCompra = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtprecoplaneamento = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.numArtigo)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -122,6 +124,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtprecoplaneamento);
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.numArtigo);
             this.groupBox1.Controls.Add(this.comboTipoArtigo);
             this.groupBox1.Controls.Add(this.comboArtigo);
@@ -188,9 +192,25 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(16, 24);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(151, 20);
+            this.label4.Size = new System.Drawing.Size(121, 16);
             this.label4.TabIndex = 0;
             this.label4.Text = "Selecionar compra";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(51, 303);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(46, 16);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Preço:";
+            // 
+            // txtprecoplaneamento
+            // 
+            this.txtprecoplaneamento.Location = new System.Drawing.Point(115, 297);
+            this.txtprecoplaneamento.Name = "txtprecoplaneamento";
+            this.txtprecoplaneamento.Size = new System.Drawing.Size(180, 22);
+            this.txtprecoplaneamento.TabIndex = 8;
             // 
             // Planeamento
             // 
@@ -232,5 +252,7 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ComboBox cbSelecionarCompra;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtprecoplaneamento;
+        private System.Windows.Forms.Label label5;
     }
 }
