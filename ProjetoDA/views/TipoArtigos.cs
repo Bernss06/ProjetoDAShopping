@@ -287,9 +287,19 @@ namespace ProjetoDA.views
         // 🏠 BOTÃO: Voltar ao Início
         private void btninicio_Click(object sender, EventArgs e)
         {
-            Form1 form1 = new Form1();
-            form1.Show();
-            this.Hide();
+            Form formPrincipal = Application.OpenForms["Form1"];
+
+            if (formPrincipal != null)
+            {
+                formPrincipal.Show();
+            }
+            else
+            {
+                Form1 novoForm = new Form1();
+                novoForm.Show();
+            }
+
+            this.Close();
         }
 
         // Botão Sair

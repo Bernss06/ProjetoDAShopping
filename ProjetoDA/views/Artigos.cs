@@ -216,17 +216,19 @@ namespace ProjetoDA.views
 
         private void btninicio_Click(object sender, EventArgs e)
         {
-            // Se temos referência ao Form1 parent, mostra-o novamente
-         
-           
-          
-            // Caso contrário, cria uma nova instância
-            Form1 form1 = new Form1();
-            form1.Show();
-          
+            Form formPrincipal = Application.OpenForms["Form1"];
 
-            // Esconde o formulário atual
-            this.Hide();
+            if (formPrincipal != null)
+            {
+                formPrincipal.Show();
+            }
+            else
+            {
+                Form1 novoForm = new Form1();
+                novoForm.Show();
+            }
+
+            this.Close();
         }
     }
 }

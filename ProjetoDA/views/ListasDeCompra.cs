@@ -114,9 +114,19 @@ namespace ProjetoDA.views
 
         private void btnNovaCompra_Click(object sender, EventArgs e)
         {
-            var novaCompra = new views.Planeamento();
-            novaCompra.Show();
-            this.Hide();    
+            Form formPrincipal = Application.OpenForms["Form1"];
+
+            if (formPrincipal != null)
+            {
+                formPrincipal.Show();
+            }
+            else
+            {
+                Form1 novoForm = new Form1();
+                novoForm.Show();
+            }
+
+            this.Close();
         }
     }
 }

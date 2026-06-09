@@ -194,8 +194,18 @@ namespace ProjetoDA.views
 
         private void BtnVoltarInicio_Click(object sender, EventArgs e)
         {
-            var formInicio = new Form1();
-            formInicio.Show();
+            Form formPrincipal = Application.OpenForms["Form1"];
+
+            if (formPrincipal != null)
+            {
+                formPrincipal.Show();
+            }
+            else
+            {
+                Form1 novoForm = new Form1();
+                novoForm.Show();
+            }
+
             this.Close();
         }
     }

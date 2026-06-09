@@ -16,16 +16,25 @@ namespace ProjetoDA
     public partial class Form1 : Form
     {
         private CompraController compraController = new CompraController();
-        private OrcamentoController orcamentoController = new OrcamentoController();
+        private OrcamentoController orcamentoController = new OrcamentoController(); // <-- ADICIONA ISTO
 
         public Form1()
         {
             InitializeComponent();
-            // Quando o Form1 é fechado, limpar a sessão
+
             this.FormClosing += Form1_FormClosing;
             this.Load += Form1_Load;
+
+            // ADICIONA ESTA LINHA: Diz ao Form1 para atualizar sempre que voltar ao ecrã
+            this.Activated += Form1_Activated;
         }
 
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            // Sempre que o Form1 voltar a aparecer (quando fechas uma compra e voltas), ele puxa dados frescos!
+            CarregarCompras();
+            CarregarDadosOrcamento(); // Corrigido: método existente
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             CarregarCompras();
@@ -218,9 +227,53 @@ namespace ProjetoDA
             planeamentoForm.Show();
             this.Hide();
         }
+        // 🚪 BOTÃO: Sair (Deslogar e Retornar ao Registro)
         private void btnsair_Click(object sender, EventArgs e)
         {
-            this.Close();
+            try
+            {
+                // Confirmar saída
+                var resultado = MessageBox.Show(
+                    "Deseja sair e registar um novo utilizador?",
+                    "Confirmar Saída",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (resultado == DialogResult.Yes)
+                {
+                    // Limpar a sessão do utilizador atual
+                    SessionManager.ClearSession();
+
+                    // Tentar reutilizar a janela de registro se já estiver aberta
+                    Form formRegistro = null;
+                    
+                    foreach (Form form in Application.OpenForms)
+                    {
+                        if (form is Form)
+                        {
+                            formRegistro = (Form)form;
+                            break;
+                        }
+                    }
+
+                    // Se FormRegistro não existe, criar uma nova instância
+                    if (formRegistro == null)
+                    {
+                        formRegistro = new Form();
+                    }
+
+                    // Mostrar o FormRegistro
+                    formRegistro.Show();
+                    formRegistro.BringToFront();
+
+                    // Fechar o Form1
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao sair: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void grdCompras_CellContentClick(object sender, DataGridViewCellEventArgs e)
