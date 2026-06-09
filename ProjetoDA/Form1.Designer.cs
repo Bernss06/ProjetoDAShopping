@@ -30,7 +30,6 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnsair = new System.Windows.Forms.Button();
-            this.btnestatistica = new System.Windows.Forms.Button();
             this.btnartigos = new System.Windows.Forms.Button();
             this.btntipoartigo = new System.Windows.Forms.Button();
             this.btnplaneamento = new System.Windows.Forms.Button();
@@ -68,7 +67,6 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnsair);
-            this.groupBox1.Controls.Add(this.btnestatistica);
             this.groupBox1.Controls.Add(this.btnartigos);
             this.groupBox1.Controls.Add(this.btntipoartigo);
             this.groupBox1.Controls.Add(this.btnplaneamento);
@@ -91,18 +89,9 @@
             this.btnsair.UseVisualStyleBackColor = true;
             this.btnsair.Click += new System.EventHandler(this.btnsair_Click);
             // 
-            // btnestatistica
-            // 
-            this.btnestatistica.Location = new System.Drawing.Point(31, 400);
-            this.btnestatistica.Name = "btnestatistica";
-            this.btnestatistica.Size = new System.Drawing.Size(202, 42);
-            this.btnestatistica.TabIndex = 6;
-            this.btnestatistica.Text = "Estatistica";
-            this.btnestatistica.UseVisualStyleBackColor = true;
-            // 
             // btnartigos
             // 
-            this.btnartigos.Location = new System.Drawing.Point(31, 339);
+            this.btnartigos.Location = new System.Drawing.Point(31, 284);
             this.btnartigos.Name = "btnartigos";
             this.btnartigos.Size = new System.Drawing.Size(202, 42);
             this.btnartigos.TabIndex = 5;
@@ -112,7 +101,7 @@
             // 
             // btntipoartigo
             // 
-            this.btntipoartigo.Location = new System.Drawing.Point(31, 276);
+            this.btntipoartigo.Location = new System.Drawing.Point(31, 221);
             this.btntipoartigo.Name = "btntipoartigo";
             this.btntipoartigo.Size = new System.Drawing.Size(202, 42);
             this.btntipoartigo.TabIndex = 4;
@@ -374,7 +363,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnsair;
-        private System.Windows.Forms.Button btnestatistica;
         private System.Windows.Forms.Button btnartigos;
         private System.Windows.Forms.Button btntipoartigo;
         private System.Windows.Forms.Button btnplaneamento;

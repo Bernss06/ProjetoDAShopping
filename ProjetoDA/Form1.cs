@@ -106,14 +106,6 @@ namespace ProjetoDA
             orcamentoForm.Show();
             this.Hide();
         }
-
-        private void btnplaneamento_Click(object sender, EventArgs e)
-        {
-            var planeamentoForm = new views.Planeamento();
-            planeamentoForm.Show();
-            this.Hide();
-        }
-
         private void btnartigo_Click(object sender, EventArgs e)
         {
             var artigoForm = new views.Artigos();
@@ -149,11 +141,6 @@ namespace ProjetoDA
             modoCompraForm.Show();
             this.Hide();
         }
-
-        private void grdCompras_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
         private void btnnovacompra_Click(object sender, EventArgs e)
         {
             var planeamentoForm = new views.Planeamento();
@@ -188,6 +175,13 @@ namespace ProjetoDA
         {
             var registerForm = new views.FormRegistro();
             registerForm.Show();
+            this.Hide();
+        }
+
+        private void btnplaneamento_Click(object sender, EventArgs e)
+        {
+            var planeamentoForm = new views.ListasDeCompra();
+            planeamentoForm.Show();
             this.Hide();
         }
     }
