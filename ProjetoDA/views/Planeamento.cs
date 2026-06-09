@@ -206,5 +206,6 @@ namespace ProjetoDA.views
             form1.Show();
             this.Close(); // Fecha a página do planeamento para poupar memória
         }
+
     }
 }

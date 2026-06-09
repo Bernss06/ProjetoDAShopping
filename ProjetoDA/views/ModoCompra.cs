@@ -296,5 +296,20 @@ namespace ProjetoDA.views
             numQuantidadeArtigo.Value = 0;
             txtPreco.Text = "";
         }
+
+        private void btnAddNaoPrevisto_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPrecoNaoPrevisto_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numNaoPrevisto_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

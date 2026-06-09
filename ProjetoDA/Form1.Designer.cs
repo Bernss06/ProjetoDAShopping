@@ -263,6 +263,7 @@
             this.btnfecharcompra.TabIndex = 3;
             this.btnfecharcompra.Text = "Fechar Compra";
             this.btnfecharcompra.UseVisualStyleBackColor = true;
+            this.btnfecharcompra.Click += new System.EventHandler(this.btnfecharcompra_Click);
             // 
             // btndetalhes
             // 
@@ -281,6 +282,7 @@
             this.btnnovacompra.TabIndex = 0;
             this.btnnovacompra.Text = "Nova Compra";
             this.btnnovacompra.UseVisualStyleBackColor = true;
+            this.btnnovacompra.Click += new System.EventHandler(this.btnnovacompra_Click);
             // 
             // groupBox4
             // 

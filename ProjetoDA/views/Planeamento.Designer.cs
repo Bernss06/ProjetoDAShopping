@@ -39,11 +39,12 @@
             this.numArtigo = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnAddCompra = new System.Windows.Forms.Button();
             this.dtgCompras = new System.Windows.Forms.DataGridView();
             this.btnRemoveItem = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.cbSelecionarCompra = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.txtnomeCompra = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numArtigo)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -90,7 +91,7 @@
             // btnAddItem
             // 
             this.btnAddItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddItem.Location = new System.Drawing.Point(115, 350);
+            this.btnAddItem.Location = new System.Drawing.Point(89, 323);
             this.btnAddItem.Name = "btnAddItem";
             this.btnAddItem.Size = new System.Drawing.Size(171, 42);
             this.btnAddItem.TabIndex = 3;
@@ -137,6 +138,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnAddCompra);
             this.groupBox2.Controls.Add(this.dtgCompras);
             this.groupBox2.Controls.Add(this.btnRemoveItem);
             this.groupBox2.Location = new System.Drawing.Point(666, 52);
@@ -144,6 +146,16 @@
             this.groupBox2.Size = new System.Drawing.Size(368, 460);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
+            // 
+            // btnAddCompra
+            // 
+            this.btnAddCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddCompra.Location = new System.Drawing.Point(85, 387);
+            this.btnAddCompra.Name = "btnAddCompra";
+            this.btnAddCompra.Size = new System.Drawing.Size(200, 42);
+            this.btnAddCompra.TabIndex = 7;
+            this.btnAddCompra.Text = "Adicionar";
+            this.btnAddCompra.UseVisualStyleBackColor = true;
             // 
             // dtgCompras
             // 
@@ -158,7 +170,7 @@
             // btnRemoveItem
             // 
             this.btnRemoveItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveItem.Location = new System.Drawing.Point(85, 354);
+            this.btnRemoveItem.Location = new System.Drawing.Point(85, 327);
             this.btnRemoveItem.Name = "btnRemoveItem";
             this.btnRemoveItem.Size = new System.Drawing.Size(200, 41);
             this.btnRemoveItem.TabIndex = 7;
@@ -167,30 +179,29 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.cbSelecionarCompra);
-            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Controls.Add(this.txtnomeCompra);
+            this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Location = new System.Drawing.Point(18, 52);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(263, 287);
+            this.groupBox4.Size = new System.Drawing.Size(263, 460);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             // 
-            // cbSelecionarCompra
+            // txtnomeCompra
             // 
-            this.cbSelecionarCompra.FormattingEnabled = true;
-            this.cbSelecionarCompra.Location = new System.Drawing.Point(19, 58);
-            this.cbSelecionarCompra.Name = "cbSelecionarCompra";
-            this.cbSelecionarCompra.Size = new System.Drawing.Size(205, 24);
-            this.cbSelecionarCompra.TabIndex = 1;
+            this.txtnomeCompra.Location = new System.Drawing.Point(39, 92);
+            this.txtnomeCompra.Name = "txtnomeCompra";
+            this.txtnomeCompra.Size = new System.Drawing.Size(124, 22);
+            this.txtnomeCompra.TabIndex = 7;
             // 
-            // label4
+            // label5
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 24);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(151, 20);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Selecionar compra";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(36, 57);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(114, 16);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Nome da Compra";
             // 
             // Planeamento
             // 
@@ -230,7 +241,8 @@
         private System.Windows.Forms.Button btnRemoveItem;
         private System.Windows.Forms.DataGridView dtgCompras;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.ComboBox cbSelecionarCompra;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtnomeCompra;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnAddCompra;
     }
 }
