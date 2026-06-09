@@ -38,8 +38,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnVoltarInicio = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.dtgOrcamentos = new System.Windows.Forms.DataGridView();
             this.btnEditOrcamento = new System.Windows.Forms.Button();
+            this.dtgOrcamentos = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -141,6 +141,15 @@
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             // 
+            // btnEditOrcamento
+            // 
+            this.btnEditOrcamento.Location = new System.Drawing.Point(113, 256);
+            this.btnEditOrcamento.Name = "btnEditOrcamento";
+            this.btnEditOrcamento.Size = new System.Drawing.Size(158, 40);
+            this.btnEditOrcamento.TabIndex = 3;
+            this.btnEditOrcamento.Text = "Editar Orcamento";
+            this.btnEditOrcamento.UseVisualStyleBackColor = true;
+            // 
             // dtgOrcamentos
             // 
             this.dtgOrcamentos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -151,19 +160,11 @@
             this.dtgOrcamentos.Size = new System.Drawing.Size(361, 229);
             this.dtgOrcamentos.TabIndex = 0;
             // 
-            // btnEditOrcamento
-            // 
-            this.btnEditOrcamento.Location = new System.Drawing.Point(113, 256);
-            this.btnEditOrcamento.Name = "btnEditOrcamento";
-            this.btnEditOrcamento.Size = new System.Drawing.Size(158, 40);
-            this.btnEditOrcamento.TabIndex = 3;
-            this.btnEditOrcamento.Text = "Editar Orcamento";
-            this.btnEditOrcamento.UseVisualStyleBackColor = true;
-            // 
             // Orcamento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);

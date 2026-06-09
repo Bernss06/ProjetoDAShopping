@@ -129,7 +129,7 @@
             // 
             // txtNomeCategoria
             // 
-            this.txtNomeCategoria.Location = new System.Drawing.Point(29, 100);
+            this.txtNomeCategoria.Location = new System.Drawing.Point(29, 111);
             this.txtNomeCategoria.Name = "txtNomeCategoria";
             this.txtNomeCategoria.Size = new System.Drawing.Size(140, 22);
             this.txtNomeCategoria.TabIndex = 0;
@@ -150,17 +150,18 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grdCategorias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdCategorias.Location = new System.Drawing.Point(0, 54);
+            this.grdCategorias.Location = new System.Drawing.Point(0, 21);
             this.grdCategorias.Name = "grdCategorias";
             this.grdCategorias.RowHeadersWidth = 51;
             this.grdCategorias.RowTemplate.Height = 24;
-            this.grdCategorias.Size = new System.Drawing.Size(571, 190);
+            this.grdCategorias.Size = new System.Drawing.Size(571, 223);
             this.grdCategorias.TabIndex = 5;
             // 
             // TipoArtigos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(860, 497);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxdetalhes);

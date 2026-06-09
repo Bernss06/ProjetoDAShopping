@@ -30,12 +30,16 @@
         {
             this.btnVoltarInicio = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbTipoArtigo = new System.Windows.Forms.ComboBox();
             this.btnAddNaoPrevisto = new System.Windows.Forms.Button();
-            this.dtgItensCompra = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lbPreco = new System.Windows.Forms.Label();
+            this.cbArtigo = new System.Windows.Forms.ComboBox();
             this.txtPrecoNaoPrevisto = new System.Windows.Forms.TextBox();
             this.numNaoPrevisto = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
+            this.dtgItensCompra = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
             this.btnadicionaritem = new System.Windows.Forms.Button();
@@ -51,13 +55,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.lbOrcamentoTotal = new System.Windows.Forms.Label();
             this.lbRestanteDisponivel = new System.Windows.Forms.Label();
-            this.cbTipoArtigo = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cbArtigo = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgItensCompra)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNaoPrevisto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgItensCompra)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQuantidadeArtigo)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -72,6 +72,7 @@
             this.btnVoltarInicio.TabIndex = 0;
             this.btnVoltarInicio.Text = "<- Inicio";
             this.btnVoltarInicio.UseVisualStyleBackColor = true;
+            this.btnVoltarInicio.Click += new System.EventHandler(this.BtnVoltarInicio_Click);
             // 
             // groupBox1
             // 
@@ -79,7 +80,7 @@
             this.groupBox1.Controls.Add(this.btnAddNaoPrevisto);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.lbPreco);
             this.groupBox1.Controls.Add(this.cbArtigo);
             this.groupBox1.Controls.Add(this.txtPrecoNaoPrevisto);
             this.groupBox1.Controls.Add(this.numNaoPrevisto);
@@ -90,39 +91,64 @@
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             // 
+            // cbTipoArtigo
+            // 
+            this.cbTipoArtigo.FormattingEnabled = true;
+            this.cbTipoArtigo.Location = new System.Drawing.Point(4, 99);
+            this.cbTipoArtigo.Name = "cbTipoArtigo";
+            this.cbTipoArtigo.Size = new System.Drawing.Size(200, 24);
+            this.cbTipoArtigo.TabIndex = 14;
+            // 
             // btnAddNaoPrevisto
             // 
+            this.btnAddNaoPrevisto.BackColor = System.Drawing.Color.White;
             this.btnAddNaoPrevisto.Location = new System.Drawing.Point(22, 278);
             this.btnAddNaoPrevisto.Name = "btnAddNaoPrevisto";
             this.btnAddNaoPrevisto.Size = new System.Drawing.Size(165, 48);
             this.btnAddNaoPrevisto.TabIndex = 11;
             this.btnAddNaoPrevisto.Text = "Adicionar Item Extra";
-            this.btnAddNaoPrevisto.UseVisualStyleBackColor = true;
+            this.btnAddNaoPrevisto.UseVisualStyleBackColor = false;
             // 
-            // dtgItensCompra
+            // label11
             // 
-            this.dtgItensCompra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgItensCompra.Location = new System.Drawing.Point(6, 13);
-            this.dtgItensCompra.Name = "dtgItensCompra";
-            this.dtgItensCompra.RowHeadersWidth = 51;
-            this.dtgItensCompra.RowTemplate.Height = 24;
-            this.dtgItensCompra.Size = new System.Drawing.Size(277, 193);
-            this.dtgItensCompra.TabIndex = 5;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(5, 80);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(35, 16);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "Tipo";
             // 
-            // label3
+            // label1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 218);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 16);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "Preço";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(5, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 16);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Artigo";
+            // 
+            // lbPreco
+            // 
+            this.lbPreco.AutoSize = true;
+            this.lbPreco.Location = new System.Drawing.Point(6, 218);
+            this.lbPreco.Name = "lbPreco";
+            this.lbPreco.Size = new System.Drawing.Size(46, 16);
+            this.lbPreco.TabIndex = 14;
+            this.lbPreco.Text = "Preço:";
+            // 
+            // cbArtigo
+            // 
+            this.cbArtigo.FormattingEnabled = true;
+            this.cbArtigo.Location = new System.Drawing.Point(4, 43);
+            this.cbArtigo.Name = "cbArtigo";
+            this.cbArtigo.Size = new System.Drawing.Size(204, 24);
+            this.cbArtigo.TabIndex = 11;
             // 
             // txtPrecoNaoPrevisto
             // 
-            this.txtPrecoNaoPrevisto.Location = new System.Drawing.Point(53, 215);
+            this.txtPrecoNaoPrevisto.Location = new System.Drawing.Point(58, 215);
             this.txtPrecoNaoPrevisto.Name = "txtPrecoNaoPrevisto";
-            this.txtPrecoNaoPrevisto.Size = new System.Drawing.Size(154, 22);
+            this.txtPrecoNaoPrevisto.Size = new System.Drawing.Size(149, 22);
             this.txtPrecoNaoPrevisto.TabIndex = 13;
             // 
             // numNaoPrevisto
@@ -140,6 +166,16 @@
             this.label4.Size = new System.Drawing.Size(77, 16);
             this.label4.TabIndex = 11;
             this.label4.Text = "Quantidade";
+            // 
+            // dtgItensCompra
+            // 
+            this.dtgItensCompra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgItensCompra.Location = new System.Drawing.Point(6, 13);
+            this.dtgItensCompra.Name = "dtgItensCompra";
+            this.dtgItensCompra.RowHeadersWidth = 51;
+            this.dtgItensCompra.RowTemplate.Height = 24;
+            this.dtgItensCompra.Size = new System.Drawing.Size(277, 193);
+            this.dtgItensCompra.TabIndex = 5;
             // 
             // groupBox2
             // 
@@ -280,44 +316,11 @@
             this.lbRestanteDisponivel.TabIndex = 11;
             this.lbRestanteDisponivel.Text = "label8";
             // 
-            // cbTipoArtigo
-            // 
-            this.cbTipoArtigo.FormattingEnabled = true;
-            this.cbTipoArtigo.Location = new System.Drawing.Point(4, 99);
-            this.cbTipoArtigo.Name = "cbTipoArtigo";
-            this.cbTipoArtigo.Size = new System.Drawing.Size(200, 24);
-            this.cbTipoArtigo.TabIndex = 14;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(5, 80);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(35, 16);
-            this.label11.TabIndex = 13;
-            this.label11.Text = "Tipo";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 16);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Artigo";
-            // 
-            // cbArtigo
-            // 
-            this.cbArtigo.FormattingEnabled = true;
-            this.cbArtigo.Location = new System.Drawing.Point(4, 43);
-            this.cbArtigo.Name = "cbArtigo";
-            this.cbArtigo.Size = new System.Drawing.Size(204, 24);
-            this.cbArtigo.TabIndex = 11;
-            // 
             // ModoCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(1010, 487);
             this.Controls.Add(this.lbRestanteDisponivel);
             this.Controls.Add(this.btnVoltarInicio);
@@ -332,8 +335,8 @@
             this.Text = "ModoCompra";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgItensCompra)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNaoPrevisto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgItensCompra)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numQuantidadeArtigo)).EndInit();
@@ -363,7 +366,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label lbRestanteDisponivel;
         private System.Windows.Forms.DataGridView dtgItensCompra;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbPreco;
         private System.Windows.Forms.TextBox txtPrecoNaoPrevisto;
         private System.Windows.Forms.NumericUpDown numNaoPrevisto;
         private System.Windows.Forms.Label label4;

@@ -86,7 +86,6 @@
             this.btnRegisto.TabIndex = 5;
             this.btnRegisto.Text = "Registrar";
             this.btnRegisto.UseVisualStyleBackColor = true;
-         
             // 
             // btnJatenho
             // 
@@ -101,6 +100,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(506, 350);
             this.Controls.Add(this.btnJatenho);
             this.Controls.Add(this.btnRegisto);

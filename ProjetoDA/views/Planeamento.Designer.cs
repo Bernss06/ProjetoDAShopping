@@ -39,9 +39,9 @@
             this.numArtigo = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnAddCompra = new System.Windows.Forms.Button();
             this.dtgCompras = new System.Windows.Forms.DataGridView();
             this.btnRemoveItem = new System.Windows.Forms.Button();
+            this.btnAddCompra = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.txtnomeCompra = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -146,16 +146,6 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
-            // btnAddCompra
-            // 
-            this.btnAddCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddCompra.Location = new System.Drawing.Point(18, 160);
-            this.btnAddCompra.Name = "btnAddCompra";
-            this.btnAddCompra.Size = new System.Drawing.Size(200, 42);
-            this.btnAddCompra.TabIndex = 7;
-            this.btnAddCompra.Text = "Criar";
-            this.btnAddCompra.UseVisualStyleBackColor = true;
-            // 
             // dtgCompras
             // 
             this.dtgCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -175,6 +165,16 @@
             this.btnRemoveItem.TabIndex = 7;
             this.btnRemoveItem.Text = "Remover item selecionado";
             this.btnRemoveItem.UseVisualStyleBackColor = true;
+            // 
+            // btnAddCompra
+            // 
+            this.btnAddCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddCompra.Location = new System.Drawing.Point(18, 160);
+            this.btnAddCompra.Name = "btnAddCompra";
+            this.btnAddCompra.Size = new System.Drawing.Size(200, 42);
+            this.btnAddCompra.TabIndex = 7;
+            this.btnAddCompra.Text = "Criar";
+            this.btnAddCompra.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
@@ -207,6 +207,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(1155, 557);
             this.Controls.Add(this.btnVoltarInicio);
             this.Controls.Add(this.groupBox4);

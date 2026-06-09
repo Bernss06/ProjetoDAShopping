@@ -45,7 +45,7 @@ namespace ProjetoDA.views
 
         private void ModoCompra_Load(object sender, EventArgs e)
         {
-            label3.Visible = false;
+            lbPreco.Visible = false;
             label4.Visible = false;
 
             var tipos = _tipoArtigoController.getTiposArtigo();
@@ -194,8 +194,8 @@ namespace ProjetoDA.views
 
         private void BtnVoltarInicio_Click(object sender, EventArgs e)
         {
-            var form1 = new Form1();
-            form1.Show();
+            var formInicio = new Form1();
+            formInicio.Show();
             this.Close();
         }
     }
