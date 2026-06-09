@@ -28,39 +28,30 @@ namespace ProjetoDA.views
             _tipoArtigoController = new TipoArtigoController();
             _orcamentoController = new OrcamentoController();
 
-            // Ligar Eventos
             this.Load += ModoCompra_Load;
             this.btnVoltarInicio.Click += BtnVoltarInicio_Click;
-            this.btniniciarcompra.Click += BtnIniciarCompra_Click;
-            this.btnadicionaritem.Click += BtnAdicionarItem_Click;
-            this.btneditarpreco.Click += BtnEditarPreco_Click;
-            this.btnremoveritem.Click += BtnRemoverItem_Click;
-            this.btnGuadarCompra.Click += BtnGuardarCompra_Click;
-            this.btnfinalizarcompra.Click += BtnFinalizarCompra_Click;
+
+            // Botões do formulário
+            this.btnadicionaritem.Click += BtnAtualizarPrevisto_Click; // Atualiza item planeado
+            this.btnAddNaoPrevisto.Click += BtnAddNaoPrevisto_Click;   // Adiciona item extra
+            this.btnremoveritem.Click += BtnRemoverItem_Click;         // Remove do carrinho
+            this.btnfinalizarcompra.Click += BtnFinalizarCompra_Click; // Fecha a compra
 
             this.cbTipoArtigo.SelectedIndexChanged += CbTipoArtigo_SelectedIndexChanged;
         }
 
-        // ==========================================
-        // 1. CARREGAMENTO INICIAL
-        // ==========================================
         private void ModoCompra_Load(object sender, EventArgs e)
         {
-            label3.Visible = false;
-            label4.Visible = false;
-
-            // ERRO CORRIGIDO AQUI: Usar 'Categoria' como está no teu modelo
+            // 1. Carregar Categorias e Artigos para os Extras (Esquerda)
             var tipos = _tipoArtigoController.getTiposArtigo();
             tipos.Insert(0, new TipoArtigo { Id = 0, Categoria = "-- Todos --" });
             cbTipoArtigo.DataSource = tipos;
             cbTipoArtigo.DisplayMember = "Categoria";
             cbTipoArtigo.ValueMember = "Id";
-
             CarregarArtigos(0);
 
-            // Obter o Orçamento deste mês
-            var orcamentos = _orcamentoController.getOrcamentos();
-            var orcMes = orcamentos.FirstOrDefault(o => o.Mes == DateTime.Now.Month && o.Ano == DateTime.Now.Year);
+            // 2. Obter Orçamento do Mês
+            var orcMes = _orcamentoController.getOrcamentos().FirstOrDefault(o => o.Mes == DateTime.Now.Month && o.Ano == DateTime.Now.Year);
             if (orcMes != null)
             {
                 _orcamentoMensal = orcMes.ValorMaximo;
@@ -71,216 +62,168 @@ namespace ProjetoDA.views
                 lbOrcamentoTotal.Text = "Sem Orçamento";
             }
 
-            // A NOVA LÓGICA: Verificar se já existe uma compra aberta
+            // 3. Puxar a compra que deixaste aberta no Planeamento
             var comprasAbertas = _compraController.getComprasAbertas();
             if (comprasAbertas.Count > 0)
             {
-                // Já existe uma lista em andamento! Carrega-a.
-                var compraAtual = comprasAbertas.First();
-                _compraAbertaId = compraAtual.Id;
-
-                txtnomeCompra.Text = compraAtual.NomeCompra;
-                txtnomeCompra.ReadOnly = true;
-                btniniciarcompra.Enabled = false; // Já está iniciada
-
-                AtualizarGrelhaETotais();
+                _compraAbertaId = comprasAbertas.First().Id;
+                AtualizarGrelhasETotais();
             }
             else
             {
-                // Não existe nenhuma compra aberta. Prepara a interface para criar uma nova.
-                txtnomeCompra.Text = "";
-                txtnomeCompra.ReadOnly = false;
-                btniniciarcompra.Enabled = true;
-
-                // Desativa os botões de adicionar itens até a pessoa clicar em "Iniciar Compra"
-                btnadicionaritem.Enabled = false;
-                btneditarpreco.Enabled = false;
-                btnremoveritem.Enabled = false;
-                btnfinalizarcompra.Enabled = false;
-
-                MessageBox.Show("Não tens nenhuma lista em aberto. Escreve o nome da tua nova compra e clica em 'Iniciar Compra' para começares a registar!", "Nova Lista", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        private void CbTipoArtigo_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbTipoArtigo.SelectedValue is int tipoId)
-            {
-                CarregarArtigos(tipoId);
+                MessageBox.Show("Não tens nenhuma lista em andamento! Vai ao ecrã de Planeamento criar uma primeiro.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DesativarControlos();
             }
         }
 
         private void CarregarArtigos(int tipoId)
         {
             var artigos = _artigoController.getArtigos();
-            if (tipoId > 0)
-            {
-                artigos = artigos.Where(a => a.TipoArtigo.Id == tipoId).ToList();
-            }
+            if (tipoId > 0) artigos = artigos.Where(a => a.TipoArtigo.Id == tipoId).ToList();
             cbArtigo.DataSource = artigos;
             cbArtigo.DisplayMember = "Nome";
             cbArtigo.ValueMember = "Id";
         }
 
+        private void CbTipoArtigo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbTipoArtigo.SelectedValue is int tipoId) CarregarArtigos(tipoId);
+        }
+
         // ==========================================
-        // 2. ATUALIZAR GRELHA E CÁLCULO DE TOTAIS
+        // ATUALIZAÇÃO DAS DUAS GRELHAS E TOTAIS
         // ==========================================
-        private void AtualizarGrelhaETotais()
+        private void AtualizarGrelhasETotais()
         {
             if (_compraAbertaId == 0) return;
 
-            var itens = _itemCompraController.getItensDaCompra(_compraAbertaId);
+            var todosItens = _itemCompraController.getItensDaCompra(_compraAbertaId);
 
-            var dadosGrelha = itens.Select(i => new {
+            // GRELHA DO MEIO (dtgItensCompra): Apenas Itens Planeados
+            var itensPlaneados = todosItens.OfType<ItemPrevisto>().Select(i => new {
                 Id = i.Id,
                 Artigo = i.Artigo.Nome,
-                Tipo = (i is ItemPrevisto) ? "Previsto" : "Extra",
-                QtdPlan = (i is ItemPrevisto p) ? p.QuantidadePrevista : 0,
-                QtdReal = i.QuantidadeAdquirida,
+                QtdPlaneada = i.QuantidadePrevista,
+                Estado = i.QuantidadeAdquirida > 0 ? "No Carrinho ✔️" : "Pendente"
+            }).ToList();
+
+            dtgItensCompra.DataSource = itensPlaneados;
+            if (dtgItensCompra.Columns["Id"] != null) dtgItensCompra.Columns["Id"].Visible = false;
+
+            // GRELHA DA DIREITA (dtgcompra): O Carrinho Real (tudo o que tem quantidade > 0)
+            var itensNoCarrinho = todosItens.Where(i => i.QuantidadeAdquirida > 0).Select(i => new {
+                Id = i.Id,
+                Artigo = i.Artigo.Nome,
+                Tipo = (i is ItemPrevisto) ? "Planeado" : "Extra",
+                Qtd = i.QuantidadeAdquirida,
                 Preco = i.PrecoUnitario,
                 SubTotal = i.QuantidadeAdquirida * i.PrecoUnitario
             }).ToList();
 
-            dtgcompra.DataSource = dadosGrelha;
-
+            dtgcompra.DataSource = itensNoCarrinho;
             if (dtgcompra.Columns["Id"] != null) dtgcompra.Columns["Id"].Visible = false;
             if (dtgcompra.Columns["Preco"] != null) dtgcompra.Columns["Preco"].DefaultCellStyle.Format = "C2";
             if (dtgcompra.Columns["SubTotal"] != null) dtgcompra.Columns["SubTotal"].DefaultCellStyle.Format = "C2";
 
-            decimal totalCusto = itens.Sum(i => i.QuantidadeAdquirida * i.PrecoUnitario);
+            // TOTAIS DA COMPRA
+            decimal totalCusto = itensNoCarrinho.Sum(i => i.Qtd * i.Preco);
             lbCustoTotaldaCompra.Text = totalCusto.ToString("C2");
 
             decimal restante = _orcamentoMensal - totalCusto;
             lbRestanteDisponivel.Text = restante.ToString("C2");
-
-            if (restante < 0) lbRestanteDisponivel.ForeColor = System.Drawing.Color.Red;
-            else lbRestanteDisponivel.ForeColor = System.Drawing.Color.Green;
-
-            rtxtInformacoesCompra.Text = $"Estado: Em curso...\nTotal de Itens Físicos: {itens.Sum(i => i.QuantidadeAdquirida)}\nItens Diferentes: {itens.Count}";
+            lbRestanteDisponivel.ForeColor = restante < 0 ? System.Drawing.Color.Red : System.Drawing.Color.Green;
         }
 
         // ==========================================
-        // 3. AÇÕES DOS BOTÕES
+        // ZONA DO MEIO: REGISTAR PREÇO DO PLANEADO
         // ==========================================
-
-        private void BtnIniciarCompra_Click(object sender, EventArgs e)
+        private void BtnAtualizarPrevisto_Click(object sender, EventArgs e)
         {
-            string nomeDaCompra = txtnomeCompra.Text.Trim();
-
-            if (string.IsNullOrEmpty(nomeDaCompra))
+            if (_compraAbertaId == 0 || dtgItensCompra.CurrentRow == null)
             {
-                MessageBox.Show("Por favor, escreve um nome para a tua lista de compras (Ex: Compras da Semana).", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Seleciona um item pendente na grelha do meio!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int userId = SessionManager.UtilizadorLogadoId != 0 ? SessionManager.UtilizadorLogadoId : 1;
-
-            if (_compraController.criarCompra(nomeDaCompra, userId))
-            {
-                var novaCompra = _compraController.getComprasAbertas().LastOrDefault();
-                if (novaCompra != null)
-                {
-                    _compraAbertaId = novaCompra.Id;
-
-                    txtnomeCompra.ReadOnly = true;
-                    btniniciarcompra.Enabled = false;
-
-                    btnadicionaritem.Enabled = true;
-                    btneditarpreco.Enabled = true;
-                    btnremoveritem.Enabled = true;
-                    btnfinalizarcompra.Enabled = true;
-
-                    AtualizarGrelhaETotais();
-                    MessageBox.Show("Lista criada e guardada! Já podes começar a registar os artigos.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Erro ao criar a compra na base de dados.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void BtnAdicionarItem_Click(object sender, EventArgs e)
-        {
-            if (_compraAbertaId == 0 || cbArtigo.SelectedValue == null) return;
-
-            int artigoId = (int)cbArtigo.SelectedValue;
-            int qtd = (int)numQuantidadeArtigo.Value;
-
-            string precoTexto = txtPreco.Text.Replace('.', ',');
-            if (!decimal.TryParse(precoTexto, out decimal preco) || preco < 0)
-            {
-                MessageBox.Show("Preço inválido! Insere um valor numérico correto.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (qtd <= 0)
-            {
-                MessageBox.Show("A quantidade tem de ser pelo menos 1.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            bool sucesso = _compraController.adicionarItemNaoPrevisto(_compraAbertaId, artigoId, qtd, preco, "Adicionado no carrinho");
-            if (sucesso)
-            {
-                AtualizarGrelhaETotais();
-                LimparInputs();
-            }
-        }
-
-        private void BtnEditarPreco_Click(object sender, EventArgs e)
-        {
-            if (dtgcompra.CurrentRow == null)
-            {
-                MessageBox.Show("Seleciona uma linha na tabela primeiro!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            int itemId = Convert.ToInt32(dtgcompra.CurrentRow.Cells["Id"].Value);
+            int itemId = Convert.ToInt32(dtgItensCompra.CurrentRow.Cells["Id"].Value);
             int qtdReal = (int)numQuantidadeArtigo.Value;
 
-            string precoTexto = txtPreco.Text.Replace('.', ',');
-            if (!decimal.TryParse(precoTexto, out decimal precoReal) || precoReal < 0)
+            if (!decimal.TryParse(txtPreco.Text.Replace('.', ','), out decimal precoReal) || precoReal <= 0 || qtdReal <= 0)
             {
-                MessageBox.Show("Preço inválido!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Insere uma quantidade e preço válidos (maiores que 0).", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (_itemCompraController.editarQuantidadeAdquirida(itemId, qtdReal, precoReal))
             {
-                AtualizarGrelhaETotais();
-                LimparInputs();
+                AtualizarGrelhasETotais();
+                numQuantidadeArtigo.Value = 0;
+                txtPreco.Text = "";
             }
         }
 
+        // ==========================================
+        // ZONA DA ESQUERDA: ADICIONAR EXTRA À LOJA
+        // ==========================================
+        private void BtnAddNaoPrevisto_Click(object sender, EventArgs e)
+        {
+            if (_compraAbertaId == 0 || cbArtigo.SelectedValue == null) return;
+
+            int artigoSelecionadoId = (int)cbArtigo.SelectedValue;
+            int qtd = (int)numNaoPrevisto.Value;
+
+            if (!decimal.TryParse(txtPrecoNaoPrevisto.Text.Replace('.', ','), out decimal preco) || preco <= 0 || qtd <= 0)
+            {
+                MessageBox.Show("Insere uma quantidade e preço válidos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (_compraController.adicionarItemNaoPrevisto(_compraAbertaId, artigoSelecionadoId, qtd, preco, "Item Extra"))
+            {
+                AtualizarGrelhasETotais();
+                numNaoPrevisto.Value = 0;
+                txtPrecoNaoPrevisto.Text = "";
+            }
+        }
+
+        // ==========================================
+        // ZONA DA DIREITA: REMOVER DO CARRINHO E FECHAR
+        // ==========================================
         private void BtnRemoverItem_Click(object sender, EventArgs e)
         {
             if (dtgcompra.CurrentRow == null) return;
 
             int itemId = Convert.ToInt32(dtgcompra.CurrentRow.Cells["Id"].Value);
-            if (MessageBox.Show("Tens a certeza que queres remover este item do carrinho?", "Remover", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            {
-                _itemCompraController.removerItem(itemId);
-                AtualizarGrelhaETotais();
-            }
-        }
+            string tipoItem = dtgcompra.CurrentRow.Cells["Tipo"].Value.ToString();
 
-        private void BtnGuardarCompra_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("A tua lista está segura e é gravada automaticamente a cada alteração!", "Guardado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (MessageBox.Show("Tens a certeza que queres tirar isto do carrinho?", "Remover", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                if (tipoItem == "Planeado")
+                {
+                    // Se era planeado, não apagamos da BD, apenas zeramos para voltar ao estado "Pendente"
+                    _itemCompraController.editarQuantidadeAdquirida(itemId, 0, 0);
+                }
+                else
+                {
+                    // Se era extra, apagamos mesmo
+                    _itemCompraController.removerItem(itemId);
+                }
+
+                AtualizarGrelhasETotais();
+            }
         }
 
         private void BtnFinalizarCompra_Click(object sender, EventArgs e)
         {
             if (_compraAbertaId == 0) return;
 
-            if (MessageBox.Show("Desejas finalizar a compra? O estado passará a Fechada e já não poderás alterar os itens.", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Desejas fechar a conta na caixa? Não poderás mexer mais nesta lista.", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 int userId = SessionManager.UtilizadorLogadoId != 0 ? SessionManager.UtilizadorLogadoId : 1;
 
                 if (_compraController.fecharCompra(_compraAbertaId, userId))
                 {
-                    MessageBox.Show("Compra fechada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Lista fechada! Missão cumprida socio.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
             }
@@ -288,15 +231,21 @@ namespace ProjetoDA.views
 
         private void BtnVoltarInicio_Click(object sender, EventArgs e)
         {
-            Form1 form1 = new Form1();
-            form1.Show();
-            this.Close(); // Fecha a página do planeamento para poupar memória
+            var formInicio = new Form1();
+            formInicio.Show();
+            this.Close();
         }
 
-        private void LimparInputs()
+        private void DesativarControlos()
         {
-            numQuantidadeArtigo.Value = 0;
-            txtPreco.Text = "";
+            btnadicionaritem.Enabled = false;
+            btnAddNaoPrevisto.Enabled = false;
+            btnfinalizarcompra.Enabled = false;
+            btnremoveritem.Enabled = false;
         }
+
+        // Os eventos vazios gerados pelo visual studio
+        private void txtPrecoNaoPrevisto_TextChanged(object sender, EventArgs e) { }
+        private void numNaoPrevisto_ValueChanged(object sender, EventArgs e) { }
     }
 }

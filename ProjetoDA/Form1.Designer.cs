@@ -1,4 +1,4 @@
-﻿namespace ProjetoDA
+﻿ namespace ProjetoDA
 {
     partial class Form1
     {
@@ -33,7 +33,6 @@
             this.btnestatistica = new System.Windows.Forms.Button();
             this.btnartigos = new System.Windows.Forms.Button();
             this.btntipoartigo = new System.Windows.Forms.Button();
-            this.btncompra = new System.Windows.Forms.Button();
             this.btnplaneamento = new System.Windows.Forms.Button();
             this.btnorcamento = new System.Windows.Forms.Button();
             this.btninicio = new System.Windows.Forms.Button();
@@ -72,7 +71,6 @@
             this.groupBox1.Controls.Add(this.btnestatistica);
             this.groupBox1.Controls.Add(this.btnartigos);
             this.groupBox1.Controls.Add(this.btntipoartigo);
-            this.groupBox1.Controls.Add(this.btncompra);
             this.groupBox1.Controls.Add(this.btnplaneamento);
             this.groupBox1.Controls.Add(this.btnorcamento);
             this.groupBox1.Controls.Add(this.btninicio);
@@ -91,10 +89,11 @@
             this.btnsair.TabIndex = 7;
             this.btnsair.Text = "Sair";
             this.btnsair.UseVisualStyleBackColor = true;
+            this.btnsair.Click += new System.EventHandler(this.btnsair_Click);
             // 
             // btnestatistica
             // 
-            this.btnestatistica.Location = new System.Drawing.Point(31, 401);
+            this.btnestatistica.Location = new System.Drawing.Point(31, 400);
             this.btnestatistica.Name = "btnestatistica";
             this.btnestatistica.Size = new System.Drawing.Size(202, 42);
             this.btnestatistica.TabIndex = 6;
@@ -120,16 +119,6 @@
             this.btntipoartigo.Text = "Tipos Artigo";
             this.btntipoartigo.UseVisualStyleBackColor = true;
             this.btntipoartigo.Click += new System.EventHandler(this.btntipoartigo_Click);
-            // 
-            // btncompra
-            // 
-            this.btncompra.Location = new System.Drawing.Point(31, 217);
-            this.btncompra.Name = "btncompra";
-            this.btncompra.Size = new System.Drawing.Size(202, 42);
-            this.btncompra.TabIndex = 3;
-            this.btncompra.Text = "Modo Compra";
-            this.btncompra.UseVisualStyleBackColor = true;
-            this.btncompra.Click += new System.EventHandler(this.btncompra_Click);
             // 
             // btnplaneamento
             // 
@@ -263,6 +252,7 @@
             this.btnfecharcompra.TabIndex = 3;
             this.btnfecharcompra.Text = "Fechar Compra";
             this.btnfecharcompra.UseVisualStyleBackColor = true;
+            this.btnfecharcompra.Click += new System.EventHandler(this.btnfecharcompra_Click);
             // 
             // btndetalhes
             // 
@@ -281,6 +271,7 @@
             this.btnnovacompra.TabIndex = 0;
             this.btnnovacompra.Text = "Nova Compra";
             this.btnnovacompra.UseVisualStyleBackColor = true;
+            this.btnnovacompra.Click += new System.EventHandler(this.btnnovacompra_Click);
             // 
             // groupBox4
             // 
@@ -386,7 +377,6 @@
         private System.Windows.Forms.Button btnestatistica;
         private System.Windows.Forms.Button btnartigos;
         private System.Windows.Forms.Button btntipoartigo;
-        private System.Windows.Forms.Button btncompra;
         private System.Windows.Forms.Button btnplaneamento;
         private System.Windows.Forms.Button btnorcamento;
         private System.Windows.Forms.Button btninicio;
